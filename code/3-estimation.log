@@ -1,0 +1,1117 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.11)  9 JUN 2025 11:20
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**3-estimation.tex
+(./3-estimation.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-04-14>
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count272
+\c@section=\count273
+\c@subsection=\count274
+\c@subsubsection=\count275
+\c@paragraph=\count276
+\c@subparagraph=\count277
+\c@figure=\count278
+\c@table=\count279
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen146
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2024/11/05 v2.17t AMS math features
+\@mathmargin=\skip51
+For additional information on amsmath, use the `?' option.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen147
+)) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen148
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count280
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count281
+\leftroot@=\count282
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count283
+\DOTSCASE@=\count284
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen149
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count285
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count286
+\dotsspace@=\muskip17
+\c@parentequation=\count287
+\dspbrk@lvl=\count288
+\tag@help=\toks18
+\row@=\count289
+\column@=\count290
+\maxfields@=\count291
+\andhelp@=\toks19
+\eqnshift@=\dimen150
+\alignsep@=\dimen151
+\tagshift@=\dimen152
+\tagwidth@=\dimen153
+\totwidth@=\dimen154
+\lineht@=\dimen155
+\@envbody=\toks20
+\multlinegap=\skip52
+\multlinetaggap=\skip53
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks22
+\inpenc@posthook=\toks23
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2025/02/11 v3.2a Micro-typographical refinements (RS)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks24
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count292
+)
+\MT@toks=\toks25
+\MT@tempbox=\box55
+\MT@count=\count293
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1087.
+LaTeX Info: Redefining \leftprotrusion on input line 1088.
+\MT@prot@toks=\toks26
+LaTeX Info: Redefining \rightprotrusion on input line 1107.
+LaTeX Info: Redefining \textls on input line 1449.
+\MT@outer@kern=\dimen156
+LaTeX Info: Redefining \microtypecontext on input line 2053.
+LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
+\MT@listname@count=\count294
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2025/02/11 v3.2a Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 944.
+LaTeX Info: Redefining \lslig on input line 944.
+\MT@outer@space=\skip54
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2025/02/11 v3.2a microtype main configuration file (RS)
+)
+LaTeX Info: Redefining \microtypesetup on input line 3065.
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+))) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+)
+\Gm@cnth=\count295
+\Gm@cntv=\count296
+\c@Gm@tempcnt=\count297
+\Gm@bindingoffset=\dimen157
+\Gm@wd@mp=\dimen158
+\Gm@odd@mp=\dimen159
+\Gm@even@mp=\dimen160
+\Gm@layoutwidth=\dimen161
+\Gm@layoutheight=\dimen162
+\Gm@layouthoffset=\dimen163
+\Gm@layoutvoffset=\dimen164
+\Gm@dimlist=\toks27
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
+\FV@CodeLineNo=\count298
+\FV@InFile=\read2
+\FV@TabBox=\box56
+\c@FancyVerbLine=\count299
+\FV@StepNumber=\count300
+\FV@OutFile=\write3
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip55
+\fb@frw=\dimen165
+\fb@frh=\dimen166
+\FrameRule=\dimen167
+\FrameSep=\dimen168
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+)
+\Gin@req@height=\dimen169
+\Gin@req@width=\dimen170
+)
+\pandoc@box=\box57
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen171
+\lightrulewidth=\dimen172
+\cmidrulewidth=\dimen173
+\belowrulesep=\dimen174
+\belowbottomsep=\dimen175
+\aboverulesep=\dimen176
+\abovetopsep=\dimen177
+\cmidrulesep=\dimen178
+\cmidrulekern=\dimen179
+\defaultaddspace=\dimen180
+\@cmidla=\count301
+\@cmidlb=\count302
+\@aboverulesep=\dimen181
+\@belowrulesep=\dimen182
+\@thisruleclass=\count303
+\@lastruleclass=\count304
+\@thisrulewidth=\dimen183
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2024-10-27 v4.22 Multi-page Table package (DPC)
+\LTleft=\skip56
+\LTright=\skip57
+\LTpre=\skip58
+\LTpost=\skip59
+\LTchunksize=\count305
+\LTcapwidth=\dimen184
+\LT@head=\box58
+\LT@firsthead=\box59
+\LT@foot=\box60
+\LT@lastfoot=\box61
+\LT@gbox=\box62
+\LT@cols=\count306
+\LT@rows=\count307
+\c@LT@tables=\count308
+\c@LT@chunks=\count309
+\LT@p@ftn=\toks28
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
+\col@sep=\dimen185
+\ar@mcellbox=\box63
+\extrarowheight=\dimen186
+\NC@list=\toks29
+\extratabsurround=\skip60
+\backup@length=\skip61
+\ar@cellbox=\box64
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip62
+\multirow@cntb=\count310
+\multirow@dima=\skip63
+\bigstrutjot=\dimen187
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen188
+\WF@size=\dimen189
+\c@WF@wrappedlines=\count311
+\WF@box=\box65
+\WF@everypar=\toks30
+Package: wrapfig 2003/01/31  v 3.6
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count312
+\float@exts=\toks31
+\float@box=\box66
+\@float@everytoks=\toks32
+\@floatcapt=\box67
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
+\everycr=\toks33
+\minrowclearance=\skip64
+\rownum=\count313
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box68
+\sift@deathcycles=\count314
+\@vwid@loff=\dimen190
+\@vwid@roff=\dimen191
+)
+\c@taburow=\count315
+\tabu@nbcols=\count316
+\tabu@cnt=\count317
+\tabu@Xcol=\count318
+\tabu@alloc=\count319
+\tabu@nested=\count320
+\tabu@target=\dimen192
+\tabu@spreadtarget=\dimen193
+\tabu@naturalX=\dimen194
+\tabucolX=\dimen195
+\tabu@Xsum=\dimen196
+\extrarowdepth=\dimen197
+\abovetabulinesep=\dimen198
+\belowtabulinesep=\dimen199
+\tabustrutrule=\dimen256
+\tabu@thebody=\toks34
+\tabu@footnotes=\toks35
+\tabu@box=\box69
+\tabu@arstrutbox=\box70
+\tabu@hleads=\box71
+\tabu@vleads=\box72
+\tabu@cellskip=\skip65
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box73
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\TPTL@width=\skip66
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box74
+\UL@hyphenbox=\box75
+\UL@skip=\skip67
+\UL@hook=\toks36
+\UL@height=\dimen257
+\UL@pe=\count321
+\UL@pixel=\dimen258
+\ULC@box=\box76
+Package: ulem 2019/11/18
+\ULdepth=\dimen259
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen260
+\c@nlinenum=\count322
+\TeXr@lab=\toks37
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2025-05-07 v3.4.10 A comprehensive (SI) units package
+\l__siunitx_number_uncert_offset_int=\count323
+\l__siunitx_number_exponent_fixed_int=\count324
+\l__siunitx_number_min_decimal_int=\count325
+\l__siunitx_number_min_integer_int=\count326
+\l__siunitx_number_round_precision_int=\count327
+\l__siunitx_number_lower_threshold_int=\count328
+\l__siunitx_number_upper_threshold_int=\count329
+\l__siunitx_number_group_first_int=\count330
+\l__siunitx_number_group_size_int=\count331
+\l__siunitx_number_group_minimum_int=\count332
+\l__siunitx_angle_tmp_dim=\dimen261
+\l__siunitx_angle_marker_box=\box77
+\l__siunitx_angle_unit_box=\box78
+\l__siunitx_compound_count_int=\count333
+\l__siunitx_table_tmp_box=\box79
+\l__siunitx_table_tmp_dim=\dimen262
+\l__siunitx_table_column_width_dim=\dimen263
+\l__siunitx_table_integer_box=\box80
+\l__siunitx_table_decimal_box=\box81
+\l__siunitx_table_uncert_box=\box82
+\l__siunitx_table_before_box=\box83
+\l__siunitx_table_after_box=\box84
+\l__siunitx_table_before_dim=\dimen264
+\l__siunitx_table_carry_dim=\dimen265
+\l__siunitx_unit_tmp_int=\count334
+\l__siunitx_unit_position_int=\count335
+\l__siunitx_unit_total_int=\count336
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count337
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
+)
+\@linkdim=\dimen266
+\Hy@linkcounter=\count338
+\Hy@pagecounter=\count339
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count340
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4040.
+Package hyperref Info: Hyper figures OFF on input line 4157.
+Package hyperref Info: Link nesting OFF on input line 4162.
+Package hyperref Info: Hyper index ON on input line 4165.
+Package hyperref Info: Plain pages OFF on input line 4172.
+Package hyperref Info: Backreferencing OFF on input line 4177.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4424.
+\c@Hy@tempcnt=\count341
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4763.
+\XeTeXLinkMargin=\dimen267
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count342
+\Field@Width=\dimen268
+\Fld@charsize=\dimen269
+Package hyperref Info: Hyper figures OFF on input line 6042.
+Package hyperref Info: Link nesting OFF on input line 6047.
+Package hyperref Info: Hyper index ON on input line 6050.
+Package hyperref Info: backreferencing OFF on input line 6057.
+Package hyperref Info: Link coloring OFF on input line 6062.
+Package hyperref Info: Link coloring with OCG OFF on input line 6067.
+Package hyperref Info: PDF/A mode OFF on input line 6072.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count343
+\c@Item=\count344
+\c@Hfootnote=\count345
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2024-11-05 v7.01l Hyperref driver for pdfTeX
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
+with kernel methods
+)
+\Fld@listcount=\count346
+\c@bookmark@seq@number=\count347
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
+)
+\Hy@SectionHShift=\skip68
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
+\BKM@id=\count348
+))
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 134.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2025-04-14 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count349
+)
+No file 3-estimation.aux.
+\openout1 = `3-estimation.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 134.
+LaTeX Font Info:    ... okay on input line 134.
+Package microtype Info: Patching varwidth to enable character protrusion.
+\MT@vwid@leftmargin=\dimen270
+\MT@vwid@rightmargin=\dimen271
+LaTeX Info: Redefining \microtypecontext on input line 134.
+Package microtype Info: Applying patch `item' on input line 134.
+Package microtype Info: Applying patch `toc' on input line 134.
+Package microtype Info: Applying patch `eqnum' on input line 134.
+Package microtype Info: Applying patch `footnote' on input line 134.
+Package microtype Info: Applying patch `verbatim' on input line 134.
+LaTeX Info: Redefining \microtypesetup on input line 134.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using protrusion set `basicmath'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+LaTeX Info: Redefining \showhyphens on input line 134.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
+* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75502pt
+* \textheight=650.43001pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-37.0pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package hyperref Info: Link coloring OFF on input line 134.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 136.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 136.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 136.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 136.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 136.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 136.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 136.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 136.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 136.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+)
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 140.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 146.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 153.
+(/Users/linettepage/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Overfull \vbox (0.85143pt too high) detected at line 193
+ []
+
+
+
+[1
+
+{/Users/linettepage/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/linettepage/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/Users/linettepage/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 243--243
+[]\T1/lmtt/m/n/10 ## Warning: Removed 368668 rows containing missing values or values outside the scale range[] 
+ []
+
+<3-estimation_files/figure-latex/ETV histogram jep-1.pdf, id=16, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/ETV histogram jep-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/ETV histogram jep-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/ETV histogram jep-1.pdf  used on input line 245.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[2]
+Underfull \vbox (badness 10000) detected at line 280
+ []
+
+
+
+[3 <./3-estimation_files/figure-latex/ETV histogram jep-1.pdf>]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 293--293
+[]\T1/lmtt/m/n/10 ## Warning: Removed 134176 rows containing missing values or values outside the scale range[] 
+ []
+
+<3-estimation_files/figure-latex/ETV histogram jep state only-1.pdf, id=34, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/ETV histogram jep state only-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/ETV histogram jep state only-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/ETV histogram jep state only-1.pdf  used on input line 295.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[4 <./3-estimation_files/figure-latex/ETV histogram jep state only-1.pdf>]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 337--337
+[]\T1/lmtt/m/n/10 ## Warning: Removed 864641 rows containing missing values or values outside the scale range[] 
+ []
+
+<3-estimation_files/figure-latex/ETV histogram cnmh - DELETE?-1.pdf, id=44, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/ETV histogram cnmh - DELETE?-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/ETV histogram cnmh - DELETE?-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/ETV histogram cnmh - DELETE?-1.pdf  used on input line 339.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[5 <./3-estimation_files/figure-latex/ETV histogram cnmh - DELETE?-1.pdf>]
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 372--372
+[]\T1/lmtt/m/n/10 ## Warning: Removed 140914 rows containing missing values or values outside the scale range[] 
+ []
+
+<3-estimation_files/figure-latex/ETV histogram falsos positivos-1.pdf, id=54, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/ETV histogram falsos positivos-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/ETV histogram falsos positivos-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/ETV histogram falsos positivos-1.pdf  used on input line 374.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[6 <./3-estimation_files/figure-latex/ETV histogram falsos positivos-1.pdf>]
+<3-estimation_files/figure-latex/ETV per 10000-1.pdf, id=64, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/ETV per 10000-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/ETV per 10000-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/ETV per 10000-1.pdf  used on input line 389.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<3-estimation_files/figure-latex/peace density plot-1.pdf, id=65, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/peace density plot-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/peace density plot-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/peace density plot-1.pdf  used on input line 413.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[7 <./3-estimation_files/figure-latex/ETV per 10000-1.pdf>]
+<3-estimation_files/figure-latex/treatment cutoff-1.pdf, id=77, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/treatment cutoff-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/treatment cutoff-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/treatment cutoff-1.pdf  used on input line 455.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[8 <./3-estimation_files/figure-latex/peace density plot-1.pdf>]
+
+[9 <./3-estimation_files/figure-latex/treatment cutoff-1.pdf>]
+<3-estimation_files/figure-latex/balance plot-1.pdf, id=102, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/balance plot-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/balance plot-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/balance plot-1.pdf  used on input line 506.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[10 <./3-estimation_files/figure-latex/balance plot-1.pdf>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 546.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 546.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 546.
+
+
+[11{/Users/linettepage/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [12]
+
+[13]
+Underfull \vbox (badness 5985) detected at line 838
+ []
+
+
+
+[14]
+<3-estimation_files/figure-latex/matchit version-1.pdf, id=134, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version-1.pdf  used on input line 853.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<3-estimation_files/figure-latex/matchit version-2.pdf, id=135, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version-2.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version-2.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version-2.pdf  used on input line 861.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<3-estimation_files/figure-latex/matchit version-3.pdf, id=136, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version-3.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version-3.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version-3.pdf  used on input line 862.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<3-estimation_files/figure-latex/matchit version-4.pdf, id=137, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version-4.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version-4.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version-4.pdf  used on input line 863.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 861--864
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 861--864
+[]
+ []
+
+
+
+[15 <./3-estimation_files/figure-latex/matchit version-1.pdf>]
+
+[16 <./3-estimation_files/figure-latex/matchit version-2.pdf>]
+
+[17 <./3-estimation_files/figure-latex/matchit version-3.pdf>]
+<3-estimation_files/figure-latex/matchit version-5.pdf, id=169, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version-5.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version-5.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version-5.pdf  used on input line 890.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[18 <./3-estimation_files/figure-latex/matchit version-4.pdf>]
+<3-estimation_files/figure-latex/compare propensity scores-1.pdf, id=180, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/compare propensity scores-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/compare propensity scores-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/compare propensity scores-1.pdf  used on input line 918.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 918--920
+[][]
+ []
+
+
+
+[19 <./3-estimation_files/figure-latex/matchit version-5.pdf>]
+
+[20 <./3-estimation_files/figure-latex/compare propensity scores-1.pdf>] [21]
+<3-estimation_files/figure-latex/balance after 2-1.pdf, id=208, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/balance after 2-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/balance after 2-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/balance after 2-1.pdf  used on input line 1066.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1066--1070
+[][]
+ []
+
+
+
+[22 <./3-estimation_files/figure-latex/balance after 2-1.pdf>]
+
+[23]
+<3-estimation_files/figure-latex/matchit version 2-1.pdf, id=222, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version 2-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version 2-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version 2-1.pdf  used on input line 1197.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[24]
+<3-estimation_files/figure-latex/matchit version 2-2.pdf, id=227, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version 2-2.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version 2-2.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version 2-2.pdf  used on input line 1205.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<3-estimation_files/figure-latex/matchit version 2-3.pdf, id=228, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version 2-3.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version 2-3.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version 2-3.pdf  used on input line 1206.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<3-estimation_files/figure-latex/matchit version 2-4.pdf, id=229, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version 2-4.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version 2-4.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version 2-4.pdf  used on input line 1207.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1208
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1208
+[]
+ []
+
+
+
+[25 <./3-estimation_files/figure-latex/matchit version 2-1.pdf>]
+
+[26 <./3-estimation_files/figure-latex/matchit version 2-2.pdf>]
+
+[27 <./3-estimation_files/figure-latex/matchit version 2-3.pdf>]
+<3-estimation_files/figure-latex/matchit version 2-5.pdf, id=261, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/matchit version 2-5.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/matchit version 2-5.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/matchit version 2-5.pdf  used on input line 1229.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1229--1232
+[][]
+ []
+
+
+
+[28 <./3-estimation_files/figure-latex/matchit version 2-4.pdf>]
+<3-estimation_files/figure-latex/weight propensity scores-1.pdf, id=272, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/weight propensity scores-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/weight propensity scores-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/weight propensity scores-1.pdf  used on input line 1276.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[29 <./3-estimation_files/figure-latex/matchit version 2-5.pdf>]
+<3-estimation_files/figure-latex/weight propensity scores-2.pdf, id=284, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/weight propensity scores-2.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/weight propensity scores-2.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/weight propensity scores-2.pdf  used on input line 1284.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+
+[30 <./3-estimation_files/figure-latex/weight propensity scores-1.pdf>]
+
+[31 <./3-estimation_files/figure-latex/weight propensity scores-2.pdf>]
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 1 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.21251[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 2 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.17288[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 3 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.17159[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 4 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.11545[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 5 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.11062[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 6 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.06928[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 7 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.06394[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 8 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05784[] 
+ []
+
+
+
+[32]
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 9 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05683[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 10 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05706[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 11 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05469[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 12 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05342[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 13 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.0513[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 14 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05098[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 15 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05095[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 16 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05098[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 17 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04992[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 18 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04973[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 19 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04591[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 20 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04229[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 21 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04228[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 22 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04203[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 23 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04167[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 24 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03905[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 25 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03901[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 26 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03754[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 27 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03695[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 28 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03682[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 29 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03635[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 30 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03587[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 31 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03674[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 32 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03587[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 33 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03461[] 
+ []
+
+
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 34 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03448[] 
+ []
+
+
+Overfull \hbox (34.24352pt too wide) in paragraph at lines 1427--1427
+[]\T1/lmtt/m/n/10 ## With 35 dimensions of K, ebalance convergence is FALSE yielding biasbound (norm=1) of 0.25534[] 
+ []
+
+<3-estimation_files/figure-latex/kernel-1.pdf, id=312, 469.755pt x 325.215pt>
+File: 3-estimation_files/figure-latex/kernel-1.pdf Graphic file (type pdf)
+<use 3-estimation_files/figure-latex/kernel-1.pdf>
+Package pdftex.def Info: 3-estimation_files/figure-latex/kernel-1.pdf  used on input line 1451.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1451--1459
+[][]
+ []
+
+
+
+[33]
+
+[34 <./3-estimation_files/figure-latex/kernel-1.pdf>]
+! Missing $ inserted.
+<inserted text> 
+                $
+l.1544 \end{tabu}
+                 
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+ 
+Here is how much of TeX's memory you used:
+ 18477 strings out of 471528
+ 346301 string characters out of 5517607
+ 755784 words of memory out of 5000000
+ 44680 multiletter control sequences out of 15000+600000
+ 680384 words of font info for 119 fonts, out of 8000000 for 9000
+ 36 hyphenation exceptions out of 8191
+ 83i,13n,93p,1426b,1308s stack positions out of 10000i,1000n,20000p,200000b,200000s
+!  ==> Fatal error occurred, no output PDF file produced!

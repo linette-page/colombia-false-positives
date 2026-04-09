@@ -1,0 +1,1708 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\usepackage{siunitx}
+
+    \newcolumntype{d}{S[
+      table-align-text-before=false,
+      table-align-text-after=false,
+      input-symbols={-,\*+()}
+    ]}
+  
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={200C - Project Estimation},
+  pdfauthor={Sofía Granados and Linette Page},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{200C - Project Estimation}
+\author{Sofía Granados and Linette Page}
+\date{2025-06-09}
+
+\begin{document}
+\maketitle
+
+Last edited: Jun 8 2025 2:30am LP
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#select treatment}
+\CommentTok{\#estimation\_data$treat \textless{}{-} estimation\_data$etv\_dh}
+\CommentTok{\#estimation\_data$treat \textless{}{-} estimation\_data$etv\_all\_jep}
+\CommentTok{\#estimation\_data$treat \textless{}{-} estimation\_data$etv\_cnmh}
+\CommentTok{\#estimation\_data$treat \textless{}{-} estimation\_data$etv\_all\_cnmh}
+\NormalTok{estimation\_data}\SpecialCharTok{$}\NormalTok{treat }\OtherTok{\textless{}{-}}\NormalTok{ estimation\_data}\SpecialCharTok{$}\NormalTok{etv\_false\_pos}
+
+\CommentTok{\#dichotomized treatment}
+\NormalTok{estimation\_data }\OtherTok{\textless{}{-}}\NormalTok{ estimation\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{treat\_dicho =} \FunctionTok{ifelse}\NormalTok{(treat }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+
+\CommentTok{\#missings}
+\CommentTok{\#TODO: NA\textquotesingle{}s found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU }\AlertTok{TEST}\CommentTok{ IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.}
+
+\NormalTok{estimation\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{summarise\_all}\NormalTok{(}\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.))) }\CommentTok{\#how many missing for each}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1 x 30
+##    dpto  mpio codmpio trust_plebi_yes etv_dh etv_all_jep etv_false_pos etv_cnmh
+##   <int> <int>   <int>           <int>  <int>       <int>         <int>    <int>
+## 1     0     0       0               2      0           0             0        0
+## # i 22 more variables: etv_all_cnmh <int>, uribe_2002_proportion <int>,
+## #   uribe_2006_proportion <int>, avg_schooling <int>, literacy <int>,
+## #   pop_total <int>, prop_rural <int>, gdp_pcap_cons2005 <int>, mpi <int>,
+## #   gini <int>, log_pop <int>, etv_state_pre <int>, etv_nonstate_pre <int>,
+## #   presence_nonstate_pre <int>, etv_guerr_pre <int>, presence_guerr_pre <int>,
+## #   etv_param_pre <int>, presence_param_pre <int>, dem_security <int>,
+## #   hist_land_conflict <int>, treat <int>, treat_dicho <int>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimation\_nona }\OtherTok{\textless{}{-}}\NormalTok{ estimation\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{drop\_na}\NormalTok{() }\CommentTok{\#1115 obs to 1006 {-} which ones?}
+
+\CommentTok{\#covariates}
+\NormalTok{covariates }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"uribe\_2002\_proportion"}\NormalTok{, }\StringTok{"log\_pop"}\NormalTok{, }\StringTok{"gdp\_pcap\_cons2005"}\NormalTok{, }\StringTok{"gini"}\NormalTok{, }\StringTok{"etv\_state\_pre"}\NormalTok{, }\StringTok{"etv\_nonstate\_pre"}\NormalTok{, }\StringTok{"hist\_land\_conflict"}\NormalTok{)}
+\CommentTok{\#dropped: "uribe\_2006\_proportion", "avg\_schooling", "literacy", "prop\_rural", "mpi", "dem\_security",}
+\CommentTok{\#all: covariates \textless{}{-} c("uribe\_2002\_proportion", "uribe\_2006\_proportion", "avg\_schooling", "literacy", "log\_pop", "prop\_rural", "gdp\_pcap\_cons2005", "mpi", "gini", "etv\_state\_pre", "etv\_nonstate\_pre", "dem\_security", "hist\_land\_conflict")}
+
+
+\NormalTok{balance\_formula }\OtherTok{\textless{}{-}} \FunctionTok{as.formula}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"treat\_dicho \textasciitilde{} "}\NormalTok{, }\FunctionTok{paste}\NormalTok{(covariates, }\AttributeTok{collapse=}\StringTok{" + "}\NormalTok{)))}
+
+\CommentTok{\# calculate propensity scores}
+\NormalTok{estimation\_nona}\SpecialCharTok{$}\NormalTok{ps }\OtherTok{\textless{}{-}}\NormalTok{ stats}\SpecialCharTok{::}\FunctionTok{glm}\NormalTok{(balance\_formula, }
+                                 \AttributeTok{data =}\NormalTok{ estimation\_nona, }
+                                 \AttributeTok{family =} \FunctionTok{binomial}\NormalTok{(}\AttributeTok{link =}\NormalTok{ logit)}
+\NormalTok{                                 )}\SpecialCharTok{$}\NormalTok{fitted.values}
+\end{Highlighting}
+\end{Shaded}
+
+\section{1. Descriptive statistics}\label{descriptive-statistics}
+
+\subsection{1.1 Histogram for ETV (time and number of incidents, color
+by actor faceted by
+type)}\label{histogram-for-etv-time-and-number-of-incidents-color-by-actor-faceted-by-type}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full\_dataset }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"\_jep"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#types}
+  \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#time}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{year, }\AttributeTok{names\_to =} \StringTok{"jep"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"num"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#get column of count}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{perp =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make perpetrator column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Guerr"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Guerrilla"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Param"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Paramilitary"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"State"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"State"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Other"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Other"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"total"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Total"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Multiple"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Multiple"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{type =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make violence type column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Hom"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Homicide"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Dis"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Disappearence"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Kid"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Kidnapping"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Rec"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Recruitment"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{perp }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Total"}\NormalTok{, }\StringTok{"Other"}\NormalTok{, }\StringTok{"Multiple"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#remove the total}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ num, }\AttributeTok{fill =}\NormalTok{ type)) }\SpecialCharTok{+} \CommentTok{\#plot count by year; type by color}
+    \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{perp) }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"PuOr"}\NormalTok{, }\AttributeTok{name =} \StringTok{"Violence Type"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Victims by type and perpetrator, 1978{-}2018"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Data from CEV {-} JEP {-} HRDAG"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Number of Victims"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 368668 rows containing missing values or values outside the scale range
+## (`geom_col()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/ETV histogram jep-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full\_dataset }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"\_jep"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#types}
+  \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#time}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{year, }\AttributeTok{names\_to =} \StringTok{"jep"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"num"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#get column of count}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{perp =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make perpetrator column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"State"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"State"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{filter}\NormalTok{(perp }\SpecialCharTok{==} \StringTok{"State"}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{type =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make violence type column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Hom"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Homicide"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Dis"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Disappearence"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Kid"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Kidnapping"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"Rec"}\NormalTok{, jep) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Recruitment"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ num, }\AttributeTok{fill =}\NormalTok{ type)) }\SpecialCharTok{+} \CommentTok{\#plot count by year; type by color}
+    \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{perp) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \FunctionTok{c}\NormalTok{(}\DecValTok{2003}\NormalTok{, }\DecValTok{2011}\NormalTok{), }\AttributeTok{color =} \StringTok{"mediumblue"}\NormalTok{, }\AttributeTok{size=}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Victims of state{-}base violence by type, 1978{-}2018"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Number of Victims"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Data from CEV {-} JEP {-} HRDAG"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"PuOr"}\NormalTok{, }\AttributeTok{name =} \StringTok{"Violence Type"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 134176 rows containing missing values or values outside the scale range
+## (`geom_col()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/ETV histogram jep state only-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full\_dataset }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"\_cnmh"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#time}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{year, }\AttributeTok{names\_to =} \StringTok{"cnmh"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"num"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#get column of count}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{perp =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make perpetrator column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"guerrilla"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Guerrilla"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"paramilitary"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Paramilitary"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"state"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"State"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{type =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make violence type column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"forced\_disappearence"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"forced\_disappearence"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"kidnapping"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"kidnapping"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"massacre"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"massacre"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"property\_damage"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"property\_damage"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"mine"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"mine"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"recruitment"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"recruitment"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"selective\_assasination"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"selective\_assasination"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"sexual"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"sexual"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"terrorist"}\NormalTok{, cnmh) }\SpecialCharTok{\textasciitilde{}} \StringTok{"terrorist"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ num, }\AttributeTok{fill =}\NormalTok{ type)) }\SpecialCharTok{+} \CommentTok{\#plot count by year; type by color}
+    \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{perp) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Counts of violence by type and perpetrator, 1978{-}2018"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Data from Centro Nacional de Memoria Historica (CNMH)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 864641 rows containing missing values or values outside the scale range
+## (`geom_col()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/ETV histogram cnmh - DELETE?-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full\_dataset }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"year"}\NormalTok{, }\StringTok{"\_fal\_pos"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#time}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{year, }\AttributeTok{names\_to =} \StringTok{"fal\_pos"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"num"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#get column of count}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{type =} \FunctionTok{case\_when}\NormalTok{( }\CommentTok{\#make violence type column}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"forced\_disappearence"}\NormalTok{, fal\_pos) }\SpecialCharTok{\textasciitilde{}} \StringTok{"forced disappearence"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"massacre"}\NormalTok{, fal\_pos) }\SpecialCharTok{\textasciitilde{}} \StringTok{"massacre"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"selective\_assasination"}\NormalTok{, fal\_pos) }\SpecialCharTok{\textasciitilde{}} \StringTok{"homicide"}\NormalTok{,}
+      \FunctionTok{grepl}\NormalTok{(}\StringTok{"sexual"}\NormalTok{, fal\_pos) }\SpecialCharTok{\textasciitilde{}} \StringTok{"sexual violence"}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ year, }\AttributeTok{y =}\NormalTok{ num, }\AttributeTok{fill =}\NormalTok{ type)) }\SpecialCharTok{+} \CommentTok{\#plot count by year; type by color}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \FunctionTok{c}\NormalTok{(}\DecValTok{2003}\NormalTok{, }\DecValTok{2011}\NormalTok{), }\AttributeTok{color =} \StringTok{"mediumblue"}\NormalTok{, }\AttributeTok{size=}\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Victims of False Positives by type, 1978{-}2018"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Data from Centro Nacional de Memoria Historica (CNMH)"}\NormalTok{, }
+    \AttributeTok{x =} \StringTok{"Year"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Number of Victims"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"PuOr"}\NormalTok{, }\AttributeTok{name =} \StringTok{"Violence Type"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 140914 rows containing missing values or values outside the scale range
+## (`geom_col()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/ETV histogram falsos positivos-1.pdf}}
+
+TODO: show data with outliers in a better way\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimation\_data }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"\_dh"}\NormalTok{, }\StringTok{"\_cnmh"}\NormalTok{, }\StringTok{"\_jep"}\NormalTok{, }\StringTok{"false\_pos"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#types}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), }\AttributeTok{names\_to =} \StringTok{"fal\_pos"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"num"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#get column of count}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ num)) }\SpecialCharTok{+} \CommentTok{\#plot count by year; type by color}
+    \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{fal\_pos)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/ETV per 10000-1.pdf}}
+
+\subsection{1.2 Density plot for peace
+support}\label{density-plot-for-peace-support}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimation\_data }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ trust\_plebi\_yes)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_density}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Density plot of peace support in 2016 plebiscite, by municipality"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Data from La Misión de Observación Electoral"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"proportion of \textquotesingle{}yes\textquotesingle{} vote"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 2 rows containing non-finite outside the scale range
+## (`stat_density()`).
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/peace density plot-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(estimation\_data, full\_dataset)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{2. Naive regression}\label{naive-regression}
+
+Estimated treatment effect:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive \textless{}{-} lm\_robust(trust\_plebi\_yes \textasciitilde{} treat, data = estimation\_nona) \#continuous}
+\NormalTok{lm\_naive }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{data =}\NormalTok{ estimation\_nona) }\CommentTok{\#dichotomized}
+\end{Highlighting}
+\end{Shaded}
+
+\section{3. Naive + Control regression}\label{naive-control-regression}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#lm\_robust(trust\_plebi\_yes \textasciitilde{} treat + uribe\_2002\_proportion + uribe\_2006\_proportion + avg\_schooling + literacy + log\_pop + prop\_rural + gdp\_pcap\_cons2005 + mpi + gini + etv\_state\_pre + etv\_nonstate\_pre + dem\_security + hist\_land\_conflict, data = estimation\_nona) \#continuous}
+
+\NormalTok{lm\_controls }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{  gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{data =}\NormalTok{ estimation\_nona) }\CommentTok{\#dicotomized}
+\CommentTok{\#all: trust\_plebi\_yes \textasciitilde{} treat\_dicho + uribe\_2002\_proportion + uribe\_2006\_proportion + avg\_schooling + literacy + log\_pop + prop\_rural + gdp\_pcap\_cons2005 + mpi + gini + etv\_state\_pre + etv\_nonstate\_pre + dem\_security + hist\_land\_conflict, data = estimation\_nona}
+\end{Highlighting}
+\end{Shaded}
+
+\section{4. Matching}\label{matching}
+
+\subsection{4.1 Covariates}\label{covariates}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimation\_nona }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ treat)) }\SpecialCharTok{+} \CommentTok{\#spread of etv proportion}
+    \FunctionTok{geom\_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/treatment cutoff-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(estimation\_nona}\SpecialCharTok{$}\NormalTok{treat)[}\DecValTok{1}\NormalTok{] }\CommentTok{\#number of zero state violence}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   0 
+## 746
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(estimation\_nona}\SpecialCharTok{$}\NormalTok{treat)[[}\DecValTok{1}\NormalTok{]]}\SpecialCharTok{/}\FunctionTok{nrow}\NormalTok{(estimation\_nona) }\CommentTok{\#percent of municipalities that have not experienced any state violence}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7415507
+\end{verbatim}
+
+\subsubsection{4.1.1 Covariate balance}\label{covariate-balance}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estimation\_nona }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(covariates), treat\_dicho) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#choose covariates}
+\NormalTok{  reshape2}\SpecialCharTok{::}\FunctionTok{melt}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(covariates), }\AttributeTok{id.vars =} \StringTok{"treat\_dicho"}\NormalTok{, }\AttributeTok{na.rm =}\NormalTok{ T) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#put them all in one column}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =} \FunctionTok{as\_factor}\NormalTok{(treat\_dicho)), }\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ variable, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"PDF of Covariates by Treatment Status"}\NormalTok{),}
+       \AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{col =} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{col =} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.y =} \FunctionTok{element\_blank}\NormalTok{(), }\AttributeTok{axis.ticks.y =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `all_of()` outside of a selecting function was deprecated in tidyselect
+## 1.2.0.
+## i See details at
+##   <https://tidyselect.r-lib.org/reference/faq-selection-context.html>
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/balance plot-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match\_info }\OtherTok{\textless{}{-}} \FunctionTok{MatchBalance}\NormalTok{(balance\_formula, }\AttributeTok{data =}\NormalTok{ estimation\_nona, }\AttributeTok{nboots =} \DecValTok{1000}\NormalTok{, }\AttributeTok{print.level =} \DecValTok{0}\NormalTok{) }\CommentTok{\#checking balance before matching}
+
+\NormalTok{balance\_test\_before }\OtherTok{\textless{}{-}} \FunctionTok{baltest.collect}\NormalTok{(match\_info, }\AttributeTok{var.names =}\NormalTok{ covariates, }\AttributeTok{after =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\#gets numbers from match\_info}
+\NormalTok{balance\_test\_before }\OtherTok{\textless{}{-}}\NormalTok{ balance\_test\_before[, }\FunctionTok{c}\NormalTok{(}\StringTok{"mean.Tr"}\NormalTok{, }\StringTok{"mean.Co"}\NormalTok{, }\StringTok{"T pval"}\NormalTok{, }\StringTok{"KS pval"}\NormalTok{)] }\CommentTok{\#rename columns}
+
+\NormalTok{balance\_test\_before }\SpecialCharTok{|\textgreater{}} \CommentTok{\#output table}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =}\NormalTok{ T, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{align =} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Treatment Mean"}\NormalTok{, }\StringTok{"Control Mean"}\NormalTok{, }\StringTok{"T p{-}value"}\NormalTok{, }\StringTok{"KS p{-}value"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[t]{lcccc}
+\toprule
+ & Treatment Mean & Control Mean & T p-value & KS p-value\\
+\midrule
+uribe\_2002\_proportion & 0.408 & 0.457 & 0.000 & 0.001\\
+log\_pop & 10.192 & 9.355 & 0.000 & 0.000\\
+gdp\_pcap\_cons2005 & 5.601 & 6.162 & 0.025 & 0.389\\
+gini & 0.449 & 0.458 & 0.001 & 0.000\\
+etv\_state\_pre & 3.611 & 1.897 & 0.000 & 0.000\\
+\addlinespace
+etv\_nonstate\_pre & 101.110 & 48.751 & 0.000 & 0.000\\
+hist\_land\_conflict & 0.108 & 0.034 & 0.000 & NA\\
+\bottomrule
+\end{longtable}
+
+These are almost all significantly different between treatment and
+control.
+
+\subsubsection{4.1.2 Matching covariates}\label{matching-covariates}
+
+Matching throws away non-matched control units
+
+-Replacement = False - how many matches: one to one
+
+TODO: Why ATT? We are grabbing the control unit with the closest \(X_i\)
+What does closest mean? For Match(): normalized Euclidean distance
+
+curse of dimensionality: the more covariates, the further Todo: should
+we think through each covariate and whether we really need it? Also:
+issue of overspecifying the model - run model treatment
+\textasciitilde{} covariates
+
+Issue of discrepancy with multiple continuous variables Have to adjust
+for it (bias correction) through BiasAdjust = TRUE Subtracts off
+estimated discrepancy
+
+TODO: Different combinations: how many matches; which algorithm (Coarse
+- too many covariates means too far distance; pre-processing - match
+then regression on only close); whether to drop treatment units (removes
+bias)
+
+caliper: removes units with no common support
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{exact\_matches }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{colnames}\NormalTok{(estimation\_nona[,covariates]) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"dem\_security"}\NormalTok{, }\StringTok{"hist\_land\_conflict"}\NormalTok{), }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{) }\CommentTok{\#distinguish between continuous and categorical (which you can exact match on)}
+
+\NormalTok{match\_model\_1 }\OtherTok{\textless{}{-}} \FunctionTok{Match}\NormalTok{(}\AttributeTok{Y =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes,}
+                       \AttributeTok{Tr =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{treat\_dicho,}
+                       \AttributeTok{X =}\NormalTok{ estimation\_nona[, covariates],}
+                       \AttributeTok{M =} \DecValTok{1}\NormalTok{, }\CommentTok{\# one{-}to{-}one matching}
+                       \AttributeTok{exact =}\NormalTok{ exact\_matches,}
+                       \AttributeTok{caliper =} \DecValTok{2}\NormalTok{, }\CommentTok{\#0.25 standard deviations dropped}
+                       \AttributeTok{Weight =} \DecValTok{2}\NormalTok{, }\CommentTok{\#inverse of variance}
+                       \AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{,}
+                       \AttributeTok{estimand =} \StringTok{"ATT"}\NormalTok{, }
+                       \AttributeTok{BiasAdjust =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# bias adjustment}
+
+\CommentTok{\#get dataset of just matched observations}
+\NormalTok{match\_data\_1 }\OtherTok{\textless{}{-}}\NormalTok{ estimation\_nona[}\FunctionTok{c}\NormalTok{(match\_model\_1}\SpecialCharTok{$}\NormalTok{index.treated, }
+\NormalTok{                                  match\_model\_1}\SpecialCharTok{$}\NormalTok{index.control),]}
+\FunctionTok{table}\NormalTok{(match\_data\_1}\SpecialCharTok{$}\NormalTok{treat\_dicho) }\CommentTok{\#596 treated, 596 control}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   0   1 
+## 256 256
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# \#run again {-} doesn\textquotesingle{}t make sense to do}
+\CommentTok{\# match\_model\_2 \textless{}{-} Match(Y = match\_data\_1$trust\_plebi\_yes,}
+\CommentTok{\#                        Tr = match\_data\_1$treat\_dicho,}
+\CommentTok{\#                        X = match\_data\_1[, covariates],}
+\CommentTok{\#                        M = 1, \# one{-}to{-}one matching}
+\CommentTok{\#                        estimand = "ATT", }
+\CommentTok{\#                        BiasAdjust = TRUE) \# bias adjustment}
+\CommentTok{\# }
+\CommentTok{\# match\_data\_2 \textless{}{-} estimation\_nona[c(match\_model\_2$index.treated, }
+\CommentTok{\#                                   match\_model\_2$index.control),]}
+\CommentTok{\# }
+\CommentTok{\# match\_data\_2 \textless{}{-} match\_data\_2 |\textgreater{}}
+\CommentTok{\#   drop\_na()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match\_model\_1}\SpecialCharTok{$}\NormalTok{est}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]
+## [1,] -0.0125518
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match\_model\_1}\SpecialCharTok{$}\NormalTok{se}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01002341
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(match\_model\_1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Estimate...  -0.012552 
+## AI SE......  0.010023 
+## T-stat.....  -1.2522 
+## p.val......  0.21048 
+## 
+## Original number of observations..............  1006 
+## Original number of treated obs...............  260 
+## Matched number of observations...............  256 
+## Matched number of observations  (unweighted).  256 
+## 
+## Number of obs dropped by 'exact' or 'caliper'  4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Estimate...  {-}0.011164 }
+\CommentTok{\# AI SE......  0.0077703 }
+\CommentTok{\# T{-}stat.....  {-}1.4367 }
+\CommentTok{\# p.val......  0.1508}
+
+\CommentTok{\#calculate ATT manually}
+\FunctionTok{mean}\NormalTok{(match\_data\_1}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes[match\_data\_1}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(match\_data\_1}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes[match\_data\_1}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{0}\NormalTok{]) }\CommentTok{\#0.005162898}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.01382196
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive matching}
+\CommentTok{\#lm\_match \textless{}{-} lm\_robust(trust\_plebi\_yes \textasciitilde{} treat\_dicho, data = match\_data\_1) \#0.005162898}
+
+\CommentTok{\#controls matching}
+\CommentTok{\#lm\_match\_controls \textless{}{-} lm\_robust(trust\_plebi\_yes \textasciitilde{} treat\_dicho + uribe\_2002\_proportion + log\_pop + gdp\_pcap\_cons2005 +  gini + etv\_state\_pre + etv\_nonstate\_pre + hist\_land\_conflict, data = match\_data\_1) \#{-}0.0126571514}
+\end{Highlighting}
+\end{Shaded}
+
+Checking the balance after the matching
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match\_info }\OtherTok{\textless{}{-}} \FunctionTok{MatchBalance}\NormalTok{(}\AttributeTok{match.out =}\NormalTok{ match\_model\_1, }\CommentTok{\#same as above {-} gets balance, but this time comparesbefore and after}
+                                    \AttributeTok{formul =}\NormalTok{ balance\_formula,}
+                                    \AttributeTok{data =}\NormalTok{ estimation\_nona,}
+                                    \AttributeTok{print.level =} \DecValTok{0}\NormalTok{, }\AttributeTok{nboots =} \DecValTok{1000}\NormalTok{)}
+
+\NormalTok{balance\_test\_after }\OtherTok{\textless{}{-}} \FunctionTok{baltest.collect}\NormalTok{(match\_info, }\AttributeTok{var.names =}\NormalTok{ covariates, }\AttributeTok{after =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\#new balance test}
+\NormalTok{balance\_test\_after }\OtherTok{\textless{}{-}}\NormalTok{ balance\_test\_after[, }\FunctionTok{c}\NormalTok{(}\StringTok{"mean.Tr"}\NormalTok{, }\StringTok{"mean.Co"}\NormalTok{, }\StringTok{"T pval"}\NormalTok{, }\StringTok{"KS pval"}\NormalTok{)]}
+
+\NormalTok{balance\_test\_after }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =}\NormalTok{ T, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{align =} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Treatment Mean"}\NormalTok{, }\StringTok{"Control Mean"}\NormalTok{, }\StringTok{"T p{-}value"}\NormalTok{, }\StringTok{"KS p{-}value"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[t]{lcccc}
+\toprule
+ & Treatment Mean & Control Mean & T p-value & KS p-value\\
+\midrule
+uribe\_2002\_proportion & 0.410 & 0.409 & 0.818 & 0.732\\
+log\_pop & 10.184 & 10.090 & 0.001 & 0.661\\
+gdp\_pcap\_cons2005 & 5.616 & 5.540 & 0.472 & 0.678\\
+gini & 0.449 & 0.448 & 0.288 & 0.735\\
+etv\_state\_pre & 3.235 & 2.593 & 0.000 & 0.055\\
+\addlinespace
+etv\_nonstate\_pre & 97.558 & 81.954 & 0.000 & 0.054\\
+hist\_land\_conflict & 0.102 & 0.102 & 1.000 & NA\\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# \#second round {-} the balance table looks the same as the first round}
+\CommentTok{\# match\_info\_1 \textless{}{-} MatchBalance(match.out = match\_model\_2,}
+\CommentTok{\#                                     formul = balance\_formula,}
+\CommentTok{\#                                     data = match\_data\_1,}
+\CommentTok{\#                                     print.level = 0, nboots = 1000)}
+\CommentTok{\# }
+\CommentTok{\# match\_info\_1 \textless{}{-} MatchBalance(balance\_formula,}
+\CommentTok{\#                                     data = match\_data\_2,}
+\CommentTok{\#                                     print.level = 0, nboots = 1000)}
+\CommentTok{\# }
+\CommentTok{\# balance\_test\_after\_1 \textless{}{-} baltest.collect(match\_info\_1, var.names = covariates, after = FALSE)}
+\CommentTok{\# balance\_test\_after\_1 \textless{}{-} balance\_test\_after[, c("mean.Tr", "mean.Co", "T pval", "KS pval")]}
+\CommentTok{\# balance\_test\_after\_1 \%\textgreater{}\%}
+\CommentTok{\#   kable(booktabs = T, digits = 3, align = rep(\textquotesingle{}c\textquotesingle{}, 4),}
+\CommentTok{\#         col.names = c("Treatment Mean", "Control Mean", "T p{-}value", "KS p{-}value")) \%\textgreater{}\% }
+\CommentTok{\#   kable\_styling(full\_width = F, position = "center")}
+\end{Highlighting}
+\end{Shaded}
+
+Balance looks better for Falsos positivos
+
+MatchIt; 1-on-1 nearest neighbor matching on the scaled euclidian
+distance, without replacement
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# https://kosukeimai.github.io/MatchIt/articles/matching{-}methods.html}
+\CommentTok{\# https://kosukeimai.github.io/MatchIt/articles/estimating{-}effects.html\#the{-}standard{-}case}
+
+
+\NormalTok{match\_model\_2 }\OtherTok{\textless{}{-}} \FunctionTok{matchit}\NormalTok{(balance\_formula, }
+                         \AttributeTok{data =}\NormalTok{ estimation\_nona, }
+                         \AttributeTok{estimand =} \StringTok{"ATT"}\NormalTok{,}
+                         \AttributeTok{method =} \StringTok{"nearest"}\NormalTok{, }
+                         \AttributeTok{ratio =} \DecValTok{1}\NormalTok{,}
+                         \AttributeTok{distance =} \StringTok{"scaled\_euclidean"}\NormalTok{, }\CommentTok{\#matching using the same distance measure as Match()}
+                         \AttributeTok{replace =} \ConstantTok{FALSE}\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(match\_model\_2) }\CommentTok{\#two tables: balance before and after matching}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## matchit(formula = balance_formula, data = estimation_nona, method = "nearest", 
+##     distance = "scaled_euclidean", estimand = "ATT", replace = FALSE, 
+##     ratio = 1)
+## 
+## Summary of Balance for All Data:
+##                       Means Treated Means Control Std. Mean Diff. Var. Ratio
+## uribe_2002_proportion        0.4075        0.4565         -0.2694     0.8623
+## log_pop                     10.1916        9.3550          0.6768     1.8792
+## gdp_pcap_cons2005            5.6012        6.1615         -0.1833     0.4755
+## gini                         0.4495        0.4581         -0.2637     0.6875
+## etv_state_pre                3.6106        1.8967          0.2884     2.5040
+## etv_nonstate_pre           101.1103       48.7512          0.4676     2.9216
+## hist_land_conflict           0.1077        0.0335          0.2393          .
+##                       eCDF Mean eCDF Max
+## uribe_2002_proportion    0.0769   0.1434
+## log_pop                  0.2144   0.3409
+## gdp_pcap_cons2005        0.0303   0.0638
+## gini                     0.0700   0.2010
+## etv_state_pre            0.1980   0.3054
+## etv_nonstate_pre         0.1890   0.2780
+## hist_land_conflict       0.0742   0.0742
+## 
+## Summary of Balance for Matched Data:
+##                       Means Treated Means Control Std. Mean Diff. Var. Ratio
+## uribe_2002_proportion        0.4075        0.4293         -0.1199     0.9686
+## log_pop                     10.1916        9.8827          0.2499     1.6729
+## gdp_pcap_cons2005            5.6012        5.8336         -0.0760     1.0048
+## gini                         0.4495        0.4483          0.0362     0.9505
+## etv_state_pre                3.6106        2.7473          0.1453     1.7896
+## etv_nonstate_pre           101.1103       77.1976          0.2136     1.5419
+## hist_land_conflict           0.1077        0.0962          0.0372          .
+##                       eCDF Mean eCDF Max Std. Pair Dist.
+## uribe_2002_proportion    0.0314   0.0962          0.4056
+## log_pop                  0.0568   0.1077          0.3998
+## gdp_pcap_cons2005        0.0213   0.0538          0.4914
+## gini                     0.0204   0.0731          0.3727
+## etv_state_pre            0.0832   0.1346          0.2758
+## etv_nonstate_pre         0.0745   0.1308          0.3175
+## hist_land_conflict       0.0115   0.0115          0.0372
+## 
+## Sample Sizes:
+##           Control Treated
+## All           746     260
+## Matched       260     260
+## Unmatched     486       0
+## Discarded       0       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bal.tab}\NormalTok{(match\_model\_2, }\AttributeTok{stats =} \FunctionTok{c}\NormalTok{(}\StringTok{"mean.diffs"}\NormalTok{, }\StringTok{"ks.statistics"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Balance Measures
+##                          Type Diff.Adj KS.Adj
+## uribe_2002_proportion Contin.  -0.1199 0.0962
+## log_pop               Contin.   0.2499 0.1077
+## gdp_pcap_cons2005     Contin.  -0.0760 0.0538
+## gini                  Contin.   0.0362 0.0731
+## etv_state_pre         Contin.   0.1453 0.1346
+## etv_nonstate_pre      Contin.   0.2136 0.1308
+## hist_land_conflict     Binary   0.0115 0.0115
+## 
+## Sample sizes
+##           Control Treated
+## All           746     260
+## Matched       260     260
+## Unmatched     486       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#gets new dataset of just the matched observations}
+\NormalTok{match\_data\_2 }\OtherTok{\textless{}{-}} \FunctionTok{match\_data}\NormalTok{(match\_model\_2) }
+\FunctionTok{table}\NormalTok{(match\_data\_2}\SpecialCharTok{$}\NormalTok{treat\_dicho) }\CommentTok{\# 849 obs: 640 treated, 209 untreated}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   0   1 
+## 260 260
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{summary}\NormalTok{(match\_model\_2), }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.7}\NormalTok{), }\AttributeTok{var.order =} \StringTok{"unmatched"}\NormalTok{) }\CommentTok{\#loveplot {-} how different the matched is (dashed is 0.05; straight is 0.1)}
+\FunctionTok{title}\NormalTok{(}\AttributeTok{main =} \StringTok{"Loveplot of covariate distance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(match\_model\_2, }\AttributeTok{type =} \StringTok{"density"}\NormalTok{, }\AttributeTok{interactive =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\#densities of every covariate}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive}
+\NormalTok{lm\_match2 }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{weights =}\NormalTok{ weights, }\AttributeTok{data =}\NormalTok{ match\_data\_2) }\CommentTok{\#{-}0.0009941906}
+
+\CommentTok{\#controls}
+\NormalTok{lm\_match\_controls2 }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{  gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{data =}\NormalTok{ match\_data\_2) }\CommentTok{\#{-}0.01619626}
+
+\CommentTok{\#use cobalt: https://kosukeimai.github.io/MatchIt/articles/assessing{-}balance.html\#assessing{-}balance{-}with{-}cobalt}
+
+\CommentTok{\#each covariate plot}
+\NormalTok{match\_data\_2 }\SpecialCharTok{|\textgreater{}}
+\NormalTok{  dplyr}\SpecialCharTok{::}\FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(covariates), treat\_dicho) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#choose covariates}
+\NormalTok{  reshape2}\SpecialCharTok{::}\FunctionTok{melt}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(covariates), }\AttributeTok{id.vars =} \StringTok{"treat\_dicho"}\NormalTok{, }\AttributeTok{na.rm =}\NormalTok{ T) }\SpecialCharTok{|\textgreater{}} \CommentTok{\#put them all in one column}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{col =} \FunctionTok{as\_factor}\NormalTok{(treat\_dicho)), }\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ variable, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"PDF of Covariates by Treatment Status after matching"}\NormalTok{),}
+       \AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{col =} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{col =} \StringTok{"Treatment"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.y =} \FunctionTok{element\_blank}\NormalTok{(), }\AttributeTok{axis.ticks.y =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version-5.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(balance\_test\_before, balance\_test\_after, match\_info, match\_data\_1, match\_data\_2, match\_model\_1, match\_model\_2, exact\_matches)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{4.2 Propensity score
+matching}\label{propensity-score-matching}
+
+\subsubsection{4.2.1 Propensity score
+balance}\label{propensity-score-balance}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# plot propensity scores of treated vs control}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{tibble}\NormalTok{(}\AttributeTok{ps =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{ps, }
+              \AttributeTok{treatment =} \FunctionTok{as\_factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(estimation\_nona}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{))),}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ps, }\AttributeTok{col =}\NormalTok{ treatment)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribution of propensity scores"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Propensity Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/compare propensity scores-1.pdf}}
+Very different; match by propensity to get balanced units.
+
+\subsubsection{4.2.2 Matching propensity
+scores}\label{matching-propensity-scores}
+
+Compare units that have a comparable probability of getting treated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#match based on propensity scores}
+\NormalTok{match\_ps }\OtherTok{\textless{}{-}} \FunctionTok{Match}\NormalTok{(}\AttributeTok{Y =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes, }
+                  \AttributeTok{Tr =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{treat\_dicho, }
+                  \AttributeTok{X =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{ps, }
+                  \AttributeTok{M =} \DecValTok{1}\NormalTok{, }
+                  \AttributeTok{estimand =} \StringTok{"ATT"}\NormalTok{)}
+
+\CommentTok{\#get dataset of only matched observations}
+\NormalTok{match\_data\_ps }\OtherTok{\textless{}{-}}\NormalTok{ estimation\_nona[}\FunctionTok{c}\NormalTok{(match\_ps}\SpecialCharTok{$}\NormalTok{index.treated, }
+\NormalTok{                                  match\_ps}\SpecialCharTok{$}\NormalTok{index.control),]}
+\FunctionTok{table}\NormalTok{(match\_data\_ps}\SpecialCharTok{$}\NormalTok{treat\_dicho) }\CommentTok{\#723 treated, 723 control}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   0   1 
+## 473 473
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#falsos: 479 479}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match\_ps}\SpecialCharTok{$}\NormalTok{est}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             [,1]
+## [1,] -0.02929066
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{match\_ps}\SpecialCharTok{$}\NormalTok{se}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0189254
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(match\_ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Estimate...  -0.029291 
+## AI SE......  0.018925 
+## T-stat.....  -1.5477 
+## p.val......  0.1217 
+## 
+## Original number of observations..............  1006 
+## Original number of treated obs...............  260 
+## Matched number of observations...............  260 
+## Matched number of observations  (unweighted).  473
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Estimate...  0.045338 }
+\CommentTok{\# AI SE......  0.032178 }
+\CommentTok{\# T{-}stat.....  1.409 }
+\CommentTok{\# p.val......  0.15885 }
+
+\CommentTok{\#calculate ATT manually}
+\FunctionTok{mean}\NormalTok{(match\_data\_ps}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes[match\_data\_ps}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(match\_data\_ps}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes[match\_data\_ps}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{0}\NormalTok{]) }\CommentTok{\#0.03622134}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -0.01894384
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive matching}
+\NormalTok{lm\_match\_ps }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{data =}\NormalTok{ match\_data\_ps) }\CommentTok{\#0.03622134}
+
+\CommentTok{\#controls matching}
+\NormalTok{lm\_match\_ps\_controls }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{  gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{data =}\NormalTok{ match\_data\_ps) }\CommentTok{\#{-}0.0067888631}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#get balance of dataset after matching}
+\NormalTok{match\_balance\_ps }\OtherTok{\textless{}{-}} \FunctionTok{MatchBalance}\NormalTok{(}\AttributeTok{match.out =}\NormalTok{ match\_ps, }
+                                 \AttributeTok{formul =}\NormalTok{ balance\_formula, }
+                                 \AttributeTok{data =}\NormalTok{ estimation\_nona, }
+                                 \AttributeTok{print.level =} \DecValTok{0}\NormalTok{)}
+
+\NormalTok{balance\_table\_ps }\OtherTok{\textless{}{-}} \FunctionTok{baltest.collect}\NormalTok{(match\_balance\_ps, }\AttributeTok{var.names =}\NormalTok{ covariates, }\AttributeTok{after =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\#collecting numbers from matchbalance}
+\NormalTok{balance\_table\_ps }\OtherTok{\textless{}{-}}\NormalTok{ balance\_table\_ps[, }\FunctionTok{c}\NormalTok{(}\StringTok{"mean.Tr"}\NormalTok{, }\StringTok{"mean.Co"}\NormalTok{, }\StringTok{"T pval"}\NormalTok{, }\StringTok{"KS pval"}\NormalTok{)]}
+
+\NormalTok{balance\_table\_ps }\SpecialCharTok{|\textgreater{}} \CommentTok{\#output table}
+  \FunctionTok{kable}\NormalTok{(}\AttributeTok{booktabs =}\NormalTok{ T, }\AttributeTok{digits =} \DecValTok{3}\NormalTok{, }\AttributeTok{align =} \FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}c\textquotesingle{}}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+        \AttributeTok{col.names =} \FunctionTok{c}\NormalTok{(}\StringTok{"Treatment Mean"}\NormalTok{, }\StringTok{"Control Mean"}\NormalTok{, }\StringTok{"T p{-}value"}\NormalTok{, }\StringTok{"KS p{-}value"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[t]{lcccc}
+\toprule
+ & Treatment Mean & Control Mean & T p-value & KS p-value\\
+\midrule
+uribe\_2002\_proportion & 0.408 & 0.410 & 0.881 & 0.038\\
+log\_pop & 10.192 & 10.216 & 0.774 & 0.806\\
+gdp\_pcap\_cons2005 & 5.601 & 5.188 & 0.134 & 0.240\\
+gini & 0.449 & 0.450 & 0.846 & 0.000\\
+etv\_state\_pre & 3.611 & 3.526 & 0.839 & 0.000\\
+\addlinespace
+etv\_nonstate\_pre & 101.110 & 99.020 & 0.800 & 0.000\\
+hist\_land\_conflict & 0.108 & 0.045 & 0.007 & NA\\
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#plot of propensity scores after matching}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{tibble}\NormalTok{(}\AttributeTok{ps =}\NormalTok{ match\_data\_ps}\SpecialCharTok{$}\NormalTok{ps, }
+              \AttributeTok{treatment =} \FunctionTok{as\_factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(match\_data\_ps}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{))),}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ps, }\AttributeTok{col =}\NormalTok{ treatment)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribution of propensity scores after matching"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Propensity Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/balance after 2-1.pdf}}
+The Match() propensity scores afterwards are very close, but the data
+has been significantly manipulated: there are many duplicates of both
+control and treatment
+
+MatchIt: 1-on-1 nearest neighbor matching on the propensity score,
+without replacement
+
+exact = \textasciitilde dem\_security + hist\_land\_conflict,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#matchit version}
+\NormalTok{match\_balance\_ps\_2 }\OtherTok{\textless{}{-}} \FunctionTok{matchit}\NormalTok{(balance\_formula, }\CommentTok{\#match based on propensity scores}
+                    \AttributeTok{data =}\NormalTok{ estimation\_nona, }
+                    \AttributeTok{estimand =} \StringTok{"ATT"}\NormalTok{, }
+                    \AttributeTok{method =} \StringTok{"nearest"}\NormalTok{, }
+                    \AttributeTok{ratio =} \DecValTok{1}\NormalTok{,}
+                    \AttributeTok{distance =} \StringTok{"glm"}\NormalTok{, }\CommentTok{\#glm gets propensity scores {-} calculated in \{r cleaning data\} with glm as well}
+                    \AttributeTok{link =} \StringTok{"logit"}\NormalTok{, }
+                    \AttributeTok{replace =} \ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\#two tables {-} before and after matching}
+\FunctionTok{summary}\NormalTok{(match\_balance\_ps\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## matchit(formula = balance_formula, data = estimation_nona, method = "nearest", 
+##     distance = "glm", link = "logit", estimand = "ATT", replace = FALSE, 
+##     ratio = 1)
+## 
+## Summary of Balance for All Data:
+##                       Means Treated Means Control Std. Mean Diff. Var. Ratio
+## distance                     0.4354        0.1968          0.9592     2.4895
+## uribe_2002_proportion        0.4075        0.4565         -0.2694     0.8623
+## log_pop                     10.1916        9.3550          0.6768     1.8792
+## gdp_pcap_cons2005            5.6012        6.1615         -0.1833     0.4755
+## gini                         0.4495        0.4581         -0.2637     0.6875
+## etv_state_pre                3.6106        1.8967          0.2884     2.5040
+## etv_nonstate_pre           101.1103       48.7512          0.4676     2.9216
+## hist_land_conflict           0.1077        0.0335          0.2393          .
+##                       eCDF Mean eCDF Max
+## distance                 0.2975   0.4768
+## uribe_2002_proportion    0.0769   0.1434
+## log_pop                  0.2144   0.3409
+## gdp_pcap_cons2005        0.0303   0.0638
+## gini                     0.0700   0.2010
+## etv_state_pre            0.1980   0.3054
+## etv_nonstate_pre         0.1890   0.2780
+## hist_land_conflict       0.0742   0.0742
+## 
+## Summary of Balance for Matched Data:
+##                       Means Treated Means Control Std. Mean Diff. Var. Ratio
+## distance                     0.4354        0.3481          0.3510     2.0670
+## uribe_2002_proportion        0.4075        0.4031          0.0242     0.9640
+## log_pop                     10.1916        9.9857          0.1666     1.7786
+## gdp_pcap_cons2005            5.6012        5.4118          0.0620     0.9743
+## gini                         0.4495        0.4478          0.0523     0.7728
+## etv_state_pre                3.6106        2.7847          0.1390     1.7413
+## etv_nonstate_pre           101.1103       75.9905          0.2243     1.5056
+## hist_land_conflict           0.1077        0.0654          0.1365          .
+##                       eCDF Mean eCDF Max Std. Pair Dist.
+## distance                 0.0467   0.2192          0.3512
+## uribe_2002_proportion    0.0128   0.0500          1.0391
+## log_pop                  0.0204   0.1077          0.7574
+## gdp_pcap_cons2005        0.0212   0.0500          1.1149
+## gini                     0.0373   0.0885          1.1027
+## etv_state_pre            0.0827   0.1385          0.6141
+## etv_nonstate_pre         0.0886   0.1462          0.7651
+## hist_land_conflict       0.0423   0.0423          0.4343
+## 
+## Sample Sizes:
+##           Control Treated
+## All           746     260
+## Matched       260     260
+## Unmatched     486       0
+## Discarded       0       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bal.tab}\NormalTok{(match\_balance\_ps\_2, }\AttributeTok{stats =} \FunctionTok{c}\NormalTok{(}\StringTok{"mean.diffs"}\NormalTok{, }\StringTok{"ks.statistics"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Balance Measures
+##                           Type Diff.Adj KS.Adj
+## distance              Distance   0.3510 0.2192
+## uribe_2002_proportion  Contin.   0.0242 0.0500
+## log_pop                Contin.   0.1666 0.1077
+## gdp_pcap_cons2005      Contin.   0.0620 0.0500
+## gini                   Contin.   0.0523 0.0885
+## etv_state_pre          Contin.   0.1390 0.1385
+## etv_nonstate_pre       Contin.   0.2243 0.1462
+## hist_land_conflict      Binary   0.0423 0.0423
+## 
+## Sample sizes
+##           Control Treated
+## All           746     260
+## Matched       260     260
+## Unmatched     486       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#get dataset of only matched observations}
+\NormalTok{match\_data\_ps\_2 }\OtherTok{\textless{}{-}} \FunctionTok{match\_data}\NormalTok{(match\_balance\_ps\_2) }\CommentTok{\#794 obs}
+\FunctionTok{table}\NormalTok{(match\_data\_ps\_2}\SpecialCharTok{$}\NormalTok{treat\_dicho) }\CommentTok{\#640 treated, 154 untreated}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   0   1 
+## 260 260
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#falsos: 154 260 }
+
+
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{summary}\NormalTok{(match\_balance\_ps\_2), }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.7}\NormalTok{), }\AttributeTok{var.order =} \StringTok{"unmatched"}\NormalTok{) }\CommentTok{\#loveplot showing similarity}
+\FunctionTok{title}\NormalTok{(}\AttributeTok{main =} \StringTok{"Loveplot of covariate distance with propensity score matching"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version 2-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(match\_balance\_ps\_2, }\AttributeTok{type =} \StringTok{"density"}\NormalTok{, }\AttributeTok{interactive =} \ConstantTok{FALSE}\NormalTok{) }\CommentTok{\#density plots of each covariate}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version 2-2.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version 2-3.pdf}}
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version 2-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive}
+\NormalTok{lm\_match\_ps2 }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{weights =}\NormalTok{ weights, }\AttributeTok{data =}\NormalTok{ match\_data\_ps\_2) }\CommentTok{\#0.04700618}
+
+\CommentTok{\#controls}
+\NormalTok{lm\_match\_ps\_controls2 }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{  gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{weights =}\NormalTok{ weights, }\AttributeTok{data =}\NormalTok{ match\_data\_ps\_2) }\CommentTok{\#{-}0.0006025587}
+
+\CommentTok{\#comparing propensity scores after matching}
+\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{tibble}\NormalTok{(}\AttributeTok{ps =}\NormalTok{ match\_data\_ps\_2}\SpecialCharTok{$}\NormalTok{distance, }
+              \AttributeTok{treatment =} \FunctionTok{as\_factor}\NormalTok{(}\FunctionTok{ifelse}\NormalTok{(match\_data\_ps\_2}\SpecialCharTok{$}\NormalTok{treat\_dicho }\SpecialCharTok{==} \DecValTok{1}\NormalTok{, }\StringTok{"Treated"}\NormalTok{, }\StringTok{"Control"}\NormalTok{))),}
+       \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ps, }\AttributeTok{col =}\NormalTok{ treatment)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_density}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribution of propensity scores after matching"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Propensity Score"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/matchit version 2-5.pdf}}
+Some matched are worse than all for jep Matching generally looks better
+with cnmh than jep
+
+\section{5. Weighting}\label{weighting}
+
+\subsection{5.1 Weighting propensity
+scores}\label{weighting-propensity-scores}
+
+Inverse Probability-of-Treatment Weighting (IPW)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# stabilized IPW weights, created with propensity scores}
+\NormalTok{ps }\OtherTok{=}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{ps}
+\NormalTok{D }\OtherTok{=}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{treat\_dicho}
+\NormalTok{PrD }\OtherTok{=} \FunctionTok{mean}\NormalTok{(D)}
+\NormalTok{IPW }\OtherTok{=}\NormalTok{ (D}\SpecialCharTok{*}\NormalTok{PrD}\SpecialCharTok{+}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{D)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{PrD))}\SpecialCharTok{/}\NormalTok{(D}\SpecialCharTok{*}\NormalTok{ps}\SpecialCharTok{+}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{D)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{ps))}
+
+\CommentTok{\# check the propensity scores after weighting}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(ps[D}\SpecialCharTok{==}\DecValTok{1}\NormalTok{], }\AttributeTok{weight =}\NormalTok{ IPW[D}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(IPW[D}\SpecialCharTok{==}\DecValTok{1}\NormalTok{])), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{4.5}\NormalTok{), }
+     \AttributeTok{main=}\StringTok{"Distribution of propensity scores: Weighted"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in density.default(ps[D == 1], weight = IPW[D == 1]/sum(IPW[D == :
+## Selecting bandwidth *not* using 'weights'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lines}\NormalTok{(}\FunctionTok{density}\NormalTok{(ps[D}\SpecialCharTok{==}\DecValTok{0}\NormalTok{], }\AttributeTok{weight =}\NormalTok{ IPW[D}\SpecialCharTok{==}\DecValTok{0}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(IPW[D}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])),}\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in density.default(ps[D == 0], weight = IPW[D == 0]/sum(IPW[D == :
+## Selecting bandwidth *not* using 'weights'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{, }\AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"treated"}\NormalTok{,}\StringTok{"controls"}\NormalTok{), }\AttributeTok{lty =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/weight propensity scores-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(IPW)) }\CommentTok{\#check IPW for extremes}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/weight propensity scores-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive matching}
+\NormalTok{lm\_weight\_ps }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{weight =}\NormalTok{ IPW, }\AttributeTok{data =}\NormalTok{ estimation\_nona) }\CommentTok{\#0.04446162}
+
+\CommentTok{\#controls matching}
+\NormalTok{lm\_weight\_ps\_controls }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{  gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{weight =}\NormalTok{ IPW, }\AttributeTok{data =}\NormalTok{ estimation\_nona) }\CommentTok{\#{-}0.005490477}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#weightit version}
+\NormalTok{weight\_model\_ps }\OtherTok{\textless{}{-}} \FunctionTok{weightit}\NormalTok{(balance\_formula, }
+                     \AttributeTok{data =}\NormalTok{ estimation\_nona, }
+                     \AttributeTok{method =} \StringTok{"glm"}\NormalTok{, }
+                     \AttributeTok{estimand =} \StringTok{"ATE"}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(weight\_model\_ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   Summary of weights
+## 
+## - Weight ranges:
+## 
+##            Min                                   Max
+## treated 1.0054 |---------------------------| 56.4611
+## control 1.0006 |------------|                29.4138
+## 
+## - Units with the 5 most extreme weights by group:
+##                                                
+##              245     980    221     780     213
+##  treated 20.5324 24.5675 28.468 35.2046 56.4611
+##              156     726    125     663      71
+##  control  6.7693  7.0693 7.5162  16.112 29.4138
+## 
+## - Weight statistics:
+## 
+##         Coef of Var   MAD Entropy # Zeros
+## treated       1.305 0.682   0.433       0
+## control       0.921 0.260   0.134       0
+## 
+## - Effective Sample Sizes:
+## 
+##            Control Treated
+## Unweighted  746.    260.  
+## Weighted    403.77   96.38
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#treatment effect}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm\_weightit}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{data =}\NormalTok{ estimation\_nona, }\AttributeTok{weightit =}\NormalTok{ weight\_model\_ps)) }\CommentTok{\#0.04446}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm_weightit(formula = trust_plebi_yes ~ treat_dicho, data = estimation_nona, 
+##     weightit = weight_model_ps)
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)  0.502450   0.005988  83.912  < 1e-06 ***
+## treat_dicho -0.037975   0.009898  -3.837 0.000125 ***
+## Standard error: HC0 robust (adjusted for estimation of weights)
+\end{verbatim}
+
+TODO: These are negative and statisitically significant for most except
+jep - include?
+
+todo: check how extreme the weights get / how few units are doing most
+of the work - it means large bias
+
+\subsection{5.2 Kernel balancing
+weights}\label{kernel-balancing-weights}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Kbal at new defaults: 24 dimensions of k; {-}0.01064355}
+\NormalTok{weight\_model\_kbal }\OtherTok{=} \FunctionTok{kbal}\NormalTok{(}\AttributeTok{allx =}\NormalTok{ estimation\_nona[, covariates],}
+                         \AttributeTok{treatment =}\NormalTok{ estimation\_nona}\SpecialCharTok{$}\NormalTok{treat\_dicho,}
+                         \AttributeTok{printprogress =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## No multicollinear columns detected. Matrix is already full rank.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in kbal(allx = estimation_nona[, covariates], treatment =
+## estimation_nona$treat_dicho, : One or more columns of "allx" contain less than
+## 10 unique values, but "cat_data" and "mixed_data" are set to FALSE. Are you
+## sure "allx" contains only continuous data?
+\end{verbatim}
+
+\begin{verbatim}
+## Searching for b value which maximizes the variance in K: 10.742 selected 
+## Building kernel matrix
+## Running truncated SVD on kernel matrix up to 805 dimensions 
+## Truncated SVD with 805 first singular values accounts for 1 of the variance of "K" 
+## Without balancing, biasbound (norm=1) is 0.25534 and the L1 discrepancy is 0.124 
+## With 1 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.21251  
+## With 2 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.17288  
+## With 3 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.17159  
+## With 4 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.11545  
+## With 5 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.11062  
+## With 6 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.06928  
+## With 7 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.06394  
+## With 8 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05784  
+## With 9 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05683  
+## With 10 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05706  
+## With 11 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05469  
+## With 12 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05342  
+## With 13 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.0513  
+## With 14 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05098  
+## With 15 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05095  
+## With 16 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.05098  
+## With 17 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04992  
+## With 18 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04973  
+## With 19 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04591  
+## With 20 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04229  
+## With 21 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04228  
+## With 22 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04203  
+## With 23 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.04167  
+## With 24 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03905  
+## With 25 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03901  
+## With 26 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03754  
+## With 27 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03695  
+## With 28 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03682  
+## With 29 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03635  
+## With 30 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03587  
+## With 31 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03674  
+## With 32 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03587  
+## With 33 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03461  
+## With 34 dimensions of K, ebalance convergence is TRUE yielding biasbound (norm=1) of 0.03448  
+## With 35 dimensions of K, ebalance convergence is FALSE yielding biasbound (norm=1) of 0.25534  
+## Disregarding ebalance convergence and re-running at optimal choice of numdims, 34
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#naive}
+\NormalTok{lm\_weight\_ker }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho, }\AttributeTok{weights =}\NormalTok{ weight\_model\_kbal}\SpecialCharTok{$}\NormalTok{w, }\AttributeTok{data =}\NormalTok{ estimation\_nona)}
+
+\CommentTok{\#controls}
+\NormalTok{lm\_weight\_ker\_controls }\OtherTok{\textless{}{-}} \FunctionTok{lm\_robust}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{ gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{data =}\NormalTok{ estimation\_nona)}
+
+
+\CommentTok{\# Examine bias bound due to remaining imbalances; }
+\CommentTok{\# gamma is 55}
+\CommentTok{\# https://cran.r{-}project.org/web/packages/KRLS/KRLS.pdf}
+
+\CommentTok{\#shows level of bias bound at each K; kbal() chooses where it is the lowest}
+\FunctionTok{plot}\NormalTok{(}\AttributeTok{x =}\NormalTok{ weight\_model\_kbal}\SpecialCharTok{$}\NormalTok{dist\_record[}\DecValTok{1}\NormalTok{,],}
+     \AttributeTok{y =} \FunctionTok{sd}\NormalTok{(estimation\_nona}\SpecialCharTok{$}\NormalTok{trust\_plebi\_yes) }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{55}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ weight\_model\_kbal}\SpecialCharTok{$}\NormalTok{dist\_record[}\DecValTok{2}\NormalTok{,],}
+     \AttributeTok{ylab=}\StringTok{"biasbound"}\NormalTok{, }
+     \AttributeTok{xlab=}\StringTok{"Num. dims of K balanced"}\NormalTok{,}
+     \AttributeTok{pch=}\DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/kernel-1.pdf}}
+above ones compare means; kernel compares means, and also x/2, and x
+squared, etc etc; each one of these is a dimension of K; kbal finds the
+dimensions of k that makes the treatment and control the most balanced
+(ebalance convergence); we want bias bound to be as low as possible. The
+plot shows the number of K and what bias bound it gives; in this case,
+24 is the lowest: ``Disregarding ebalance convergence and re-running at
+optimal choice of numdims, 24''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(balance\_table\_ps, match\_ps, match\_balance\_ps, match\_balance\_ps\_2, match\_data\_ps, match\_data\_ps\_2, weight\_model\_kbal, weight\_model\_ps, D, IPW, PrD, ps)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{6. Results}\label{results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#all the models}
+\NormalTok{models }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \StringTok{"(1)"} \OtherTok{=}\NormalTok{ lm\_naive,}
+  \StringTok{"(2)"} \OtherTok{=}\NormalTok{ lm\_controls,}
+  \StringTok{"(3)"} \OtherTok{=}\NormalTok{ lm\_match2,}
+  \StringTok{"(4)"} \OtherTok{=}\NormalTok{ lm\_match\_controls2,}
+  \StringTok{"(5)"} \OtherTok{=}\NormalTok{ lm\_match\_ps2,}
+  \StringTok{"(6)"} \OtherTok{=}\NormalTok{ lm\_match\_ps\_controls2,}
+  \StringTok{"(7)"} \OtherTok{=}\NormalTok{ lm\_weight\_ps,}
+  \StringTok{"(8)"} \OtherTok{=}\NormalTok{ lm\_weight\_ps\_controls,}
+  \StringTok{"(9)"} \OtherTok{=}\NormalTok{ lm\_weight\_ker,}
+  \StringTok{"(10)"} \OtherTok{=}\NormalTok{ lm\_weight\_ker\_controls}
+\NormalTok{  )}
+
+\NormalTok{covariate\_row }\OtherTok{\textless{}{-}} \FunctionTok{tribble}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{term, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(1)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(2)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(3)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(4)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(5)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(6)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(7)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(8)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(9)}\StringTok{\textasciigrave{}}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\StringTok{\textasciigrave{}}\AttributeTok{(10)}\StringTok{\textasciigrave{}}\NormalTok{,}
+                \StringTok{\textquotesingle{}controls included\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Yes\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Yes\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Yes\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Yes\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}No\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Yes\textquotesingle{}}\NormalTok{)}
+
+
+\CommentTok{\#put together}
+\FunctionTok{modelsummary}\NormalTok{(models, }
+             \CommentTok{\#vcov = "HC2",}
+             \CommentTok{\#statistic = "p.value",}
+             \AttributeTok{stars =} \ConstantTok{TRUE}\NormalTok{,}
+             \CommentTok{\#coef\_omit = "uribe\_2002\_proportion|log\_pop|gdp\_pcap\_cons2005|gini|etv\_state\_pre|etv\_nonstate\_pre|hist\_land\_conflict",}
+             \AttributeTok{gof\_omit =} \StringTok{"BIC|AIC|Log.Lik|F"}\NormalTok{,}
+             \AttributeTok{add\_rows =}\NormalTok{ covariate\_row,}
+             \AttributeTok{title =} \StringTok{"The effect of Falsos Positivos cases on support for peace"}\NormalTok{,}
+             \AttributeTok{escape =} \ConstantTok{FALSE}\NormalTok{, }\CommentTok{\#to fix bug in header; need to include "+ p \textless{} 0.1, * p \textless{} 0.05, ** p \textless{} 0.01, *** p \textless{} 0.001" somewhere}
+             \AttributeTok{output =} \StringTok{"kableExtra"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{full\_width =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{position =} \StringTok{"center"}\NormalTok{, }\AttributeTok{font\_size =} \DecValTok{8}\NormalTok{)}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"Naive"} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"Controls"} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"Covariates"} \OtherTok{=} \DecValTok{2}\NormalTok{, }\StringTok{"Propensity scores"} \OtherTok{=} \DecValTok{4}\NormalTok{, }\StringTok{"Kernel"} \OtherTok{=} \DecValTok{2}\NormalTok{)) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{add\_header\_above}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{" "} \OtherTok{=} \DecValTok{3}\NormalTok{, }\StringTok{"Matching"} \OtherTok{=} \DecValTok{4}\NormalTok{, }\StringTok{"Weighting"} \OtherTok{=} \DecValTok{4}\NormalTok{)) }\CommentTok{\#|\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+\centering\centering
+\caption{\label{tab:all models table}The effect of Falsos Positivos cases on support for peace}
+\centering
+\fontsize{8}{10}\selectfont
+\begin{tabu} to \linewidth {>{\raggedright}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}
+\toprule
+\multicolumn{3}{c}{ } & \multicolumn{4}{c}{Matching} & \multicolumn{4}{c}{Weighting} \\
+\cmidrule(l{3pt}r{3pt}){4-7} \cmidrule(l{3pt}r{3pt}){8-11}
+\multicolumn{1}{c}{ } & \multicolumn{1}{c}{Naive} & \multicolumn{1}{c}{Controls} & \multicolumn{2}{c}{Covariates} & \multicolumn{4}{c}{Propensity scores} & \multicolumn{2}{c}{Kernel} \\
+\cmidrule(l{3pt}r{3pt}){2-2} \cmidrule(l{3pt}r{3pt}){3-3} \cmidrule(l{3pt}r{3pt}){4-5} \cmidrule(l{3pt}r{3pt}){6-9} \cmidrule(l{3pt}r{3pt}){10-11}
+  & (1) & (2) & (3) & (4) & (5) & (6) & (7) & (8) & (9) & (10)\\
+\midrule
+(Intercept) & \num{0.493}*** & \num{1.237}*** & \num{0.499}*** & \num{1.092}*** & \num{0.516}*** & \num{1.022}*** & \num{0.502}*** & \num{1.169}*** & \num{0.514}*** & \num{1.237}***\\
+ & (\num{0.006}) & (\num{0.086}) & (\num{0.009}) & (\num{0.111}) & (\num{0.010}) & (\num{0.100}) & (\num{0.006}) & (\num{0.093}) & (\num{0.011}) & (\num{0.086})\\
+treat_dicho & \num{0.003} & \num{-0.017}+ & \num{-0.003} & \num{-0.017}+ & \num{-0.021} & \num{-0.016} & \num{-0.038}** & \num{-0.032}** & \num{-0.018} & \num{-0.017}+\\
+ & (\num{0.011}) & (\num{0.009}) & (\num{0.013}) & (\num{0.010}) & (\num{0.014}) & (\num{0.010}) & (\num{0.014}) & (\num{0.012}) & (\num{0.015}) & (\num{0.009})\\
+uribe_2002_proportion &  & \num{-0.404}*** &  & \num{-0.426}*** &  & \num{-0.460}*** &  & \num{-0.353}*** &  & \num{-0.404}***\\
+ &  & (\num{0.024}) &  & (\num{0.033}) &  & (\num{0.033}) &  & (\num{0.035}) &  & (\num{0.024})\\
+log_pop &  & \num{-0.004} &  & \num{0.010}* &  & \num{0.009}+ &  & \num{-0.002} &  & \num{-0.004}\\
+ &  & (\num{0.004}) &  & (\num{0.005}) &  & (\num{0.005}) &  & (\num{0.005}) &  & (\num{0.004})\\
+gdp_pcap_cons2005 &  & \num{-0.006}** &  & \num{-0.014}*** &  & \num{-0.013}*** &  & \num{-0.007}*** &  & \num{-0.006}**\\
+ &  & (\num{0.002}) &  & (\num{0.002}) &  & (\num{0.002}) &  & (\num{0.002}) &  & (\num{0.002})\\
+gini &  & \num{-1.042}*** &  & \num{-0.964}*** &  & \num{-0.751}*** &  & \num{-0.993}*** &  & \num{-1.042}***\\
+ &  & (\num{0.133}) &  & (\num{0.184}) &  & (\num{0.161}) &  & (\num{0.146}) &  & (\num{0.133})\\
+etv_state_pre &  & \num{-0.001} &  & \num{0.002} &  & \num{0.001} &  & \num{-0.001} &  & \num{-0.001}\\
+ &  & (\num{0.001}) &  & (\num{0.001}) &  & (\num{0.001}) &  & (\num{0.002}) &  & (\num{0.001})\\
+etv_nonstate_pre &  & \num{-0.000}+ &  & \num{-0.000} &  & \num{-0.000} &  & \num{0.000} &  & \num{-0.000}+\\
+ &  & (\num{0.000}) &  & (\num{0.000}) &  & (\num{0.000}) &  & (\num{0.000}) &  & (\num{0.000})\\
+hist_land_conflict &  & \num{-0.014} &  & \num{-0.002} &  & \num{-0.009} &  & \num{0.002} &  & \num{-0.014}\\
+ &  & (\num{0.016}) &  & (\num{0.017}) &  & (\num{0.018}) &  & (\num{0.020}) &  & (\num{0.016})\\
+\midrule
+Num.Obs. & \num{1006} & \num{1006} & \num{520} & \num{520} & \num{520} & \num{520} & \num{1006} & \num{1006} & \num{1006} & \num{1006}\\
+R2 & \num{0.000} & \num{0.401} & \num{0.000} & \num{0.472} & \num{0.004} & \num{0.502} & \num{0.012} & \num{0.392} & \num{0.003} & \num{0.401}\\
+R2 Adj. & \num{-0.001} & \num{0.396} & \num{-0.002} & \num{0.463} & \num{0.002} & \num{0.495} & \num{0.011} & \num{0.387} & \num{0.002} & \num{0.396}\\
+RMSE & \num{0.15} & \num{0.12} &  &  &  &  & \num{0.15} & \num{0.12} & \num{0.15} & \num{0.12}\\
+controls included & No & Yes & No & Yes & No & Yes & No & Yes & No & Yes\\
+\bottomrule
+\multicolumn{11}{l}{\rule{0pt}{1em}+ p $<$ 0.1, * p $<$ 0.05, ** p $<$ 0.01, *** p $<$ 0.001}\\
+\end{tabu}
+\end{table}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\#save\_kable("code/outputs/falsos\_table.png")}
+
+
+\CommentTok{\#all five treatments:}
+\CommentTok{\#jep\_table, jep\_all\_table, cnmh\_table, cnmh\_all\_table, falsos\_table}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{models\_plot }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \StringTok{"naive"} \OtherTok{=}\NormalTok{ lm\_naive,}
+  \StringTok{"controls"} \OtherTok{=}\NormalTok{ lm\_controls,}
+  \StringTok{" "} \OtherTok{=}\NormalTok{ lm\_match2,}
+  \StringTok{"covariate matching"} \OtherTok{=}\NormalTok{ lm\_match\_controls2,}
+  \StringTok{" "} \OtherTok{=}\NormalTok{ lm\_match\_ps2,}
+  \StringTok{"propensity score matching"} \OtherTok{=}\NormalTok{ lm\_match\_ps\_controls2,}
+  \StringTok{" "} \OtherTok{=}\NormalTok{ lm\_weight\_ps,}
+  \StringTok{"propensity score weighting"} \OtherTok{=}\NormalTok{ lm\_weight\_ps\_controls,}
+  \StringTok{" "} \OtherTok{=}\NormalTok{ lm\_weight\_ker,}
+  \StringTok{"kernel weighting"} \OtherTok{=}\NormalTok{ lm\_weight\_ker\_controls}
+\NormalTok{  )}
+
+\CommentTok{\#plot of just treat\_dicho variable}
+\FunctionTok{modelplot}\NormalTok{(models\_plot,}
+          \AttributeTok{facet=}\ConstantTok{TRUE}\NormalTok{,}
+          \AttributeTok{coef\_omit =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{color =}\NormalTok{ model, }\AttributeTok{shape =}\NormalTok{ model) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"grey"}\NormalTok{, }\StringTok{"grey"}\NormalTok{, }\StringTok{"darkorange2"}\NormalTok{,}\StringTok{"darkorange2"}\NormalTok{,}\StringTok{"orange1"}\NormalTok{, }\StringTok{"orange1"}\NormalTok{, }\StringTok{"slateblue2"}\NormalTok{, }\StringTok{"slateblue2"}\NormalTok{, }\StringTok{"slateblue4"}\NormalTok{, }\StringTok{"slateblue4"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_shape\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{15}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position=}\StringTok{"none"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"The effect of Falsos Positivos cases on support for peace"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"coefficient estimates of proportion of yes votes per municipality"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"dichotomized Falsos Positivos cases"}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"open circles: without controls; closed square: with controls"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/all models plot-1.pdf}}
+
+JEP: - Adding controls makes it negative - Propensity scores and kernel
+does not work well
+
+cnmh: - Adding controls makes it negative - propensity score matching
+and weighting looks good!
+
+Falsos: even worse overall
+
+\section{7. Sensitivity analysis}\label{sensitivity-analysis}
+
+Hopefully using uribe 2002 as benchmark? gini?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#The previous estimate requires the assumption of no unobserved confounders for unbiasedness.}
+\NormalTok{estimation\_model }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(trust\_plebi\_yes }\SpecialCharTok{\textasciitilde{}}\NormalTok{ treat\_dicho }\SpecialCharTok{+}\NormalTok{ uribe\_2002\_proportion }\SpecialCharTok{+}\NormalTok{ log\_pop }\SpecialCharTok{+}\NormalTok{ gdp\_pcap\_cons2005 }\SpecialCharTok{+}\NormalTok{ gini }\SpecialCharTok{+}\NormalTok{ etv\_state\_pre }\SpecialCharTok{+}\NormalTok{ etv\_nonstate\_pre }\SpecialCharTok{+}\NormalTok{ hist\_land\_conflict, }\AttributeTok{data =}\NormalTok{ estimation\_nona)}
+
+
+\NormalTok{estimation\_sensitivity }\OtherTok{\textless{}{-}} \FunctionTok{sensemakr}\NormalTok{(}\AttributeTok{model =}\NormalTok{ estimation\_model, }
+                                \AttributeTok{treatment =} \StringTok{"treat\_dicho"}\NormalTok{,}
+                                \AttributeTok{benchmark\_covariates =} \StringTok{"gini"}\NormalTok{,}
+                                \AttributeTok{kd =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{), }\CommentTok{\#1{-}3 times stronger than treatment}
+                                \AttributeTok{ky =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{), }\CommentTok{\#1{-}3 times stronger than outcome}
+                                \AttributeTok{q =} \DecValTok{1}\NormalTok{, }\CommentTok{\#reduction of 100\% of current estimate {-} true effect of zero is problematic}
+                                \AttributeTok{alpha =} \FloatTok{0.05}\NormalTok{, }
+                                \AttributeTok{reduce =}\NormalTok{ T)}
+\CommentTok{\#estimation\_sensitivity}
+
+\FunctionTok{ovb\_minimal\_reporting}\NormalTok{(estimation\_sensitivity, }\AttributeTok{format =} \StringTok{"latex"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## \begin{table}[!h]
+## \centering
+## \begin{tabular}{lrrrrrr}
+## \multicolumn{7}{c}{Outcome: \textit{trust_plebi_yes}} \\
+## \hline \hline 
+## Treatment: & Est. & S.E. & t-value & $R^2_{Y \sim D |{\bf X}}$ & $RV_{q = 1}$ & $RV_{q = 1, \alpha = 0.05}$  \\ 
+## \hline 
+## \textit{treat_dicho} & -0.017 & 0.01 & -1.71 & 0.3\% & 5.3\% & 0\% \\ 
+## \hline 
+## df = 997 & & \multicolumn{5}{r}{ \small \textit{Bound (1x gini)}: $R^2_{Y\sim Z| {\bf X}, D}$ = 9\%, $R^2_{D\sim Z| {\bf X} }$ = 0.5\%} \\
+## \end{tabular}
+## \end{table}
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(estimation\_sensitivity)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Sensitivity Analysis to Unobserved Confounding
+## 
+## Model Formula: trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + 
+##     gdp_pcap_cons2005 + gini + etv_state_pre + etv_nonstate_pre + 
+##     hist_land_conflict
+## 
+## Null hypothesis: q = 1 and reduce = TRUE 
+## -- This means we are considering biases that reduce the absolute value of the current estimate.
+## -- The null hypothesis deemed problematic is H0:tau = 0 
+## 
+## Unadjusted Estimates of 'treat_dicho': 
+##   Coef. estimate: -0.0165 
+##   Standard Error: 0.0097 
+##   t-value (H0:tau = 0): -1.7097 
+## 
+## Sensitivity Statistics:
+##   Partial R2 of treatment with outcome: 0.0029 
+##   Robustness Value, q = 1: 0.0527 
+##   Robustness Value, q = 1, alpha = 0.05: 0 
+## 
+## Verbal interpretation of sensitivity statistics:
+## 
+## -- Partial R2 of the treatment with the outcome: an extreme confounder (orthogonal to the covariates) that explains 100% of the residual variance of the outcome, would need to explain at least 0.29% of the residual variance of the treatment to fully account for the observed estimated effect.
+## 
+## -- Robustness Value, q = 1: unobserved confounders (orthogonal to the covariates) that explain more than 5.27% of the residual variance of both the treatment and the outcome are strong enough to bring the point estimate to 0 (a bias of 100% of the original estimate). Conversely, unobserved confounders that do not explain more than 5.27% of the residual variance of both the treatment and the outcome are not strong enough to bring the point estimate to 0.
+## 
+## -- Robustness Value, q = 1, alpha = 0.05: unobserved confounders (orthogonal to the covariates) that explain more than 0% of the residual variance of both the treatment and the outcome are strong enough to bring the estimate to a range where it is no longer 'statistically different' from 0 (a bias of 100% of the original estimate), at the significance level of alpha = 0.05. Conversely, unobserved confounders that do not explain more than 0% of the residual variance of both the treatment and the outcome are not strong enough to bring the estimate to a range where it is no longer 'statistically different' from 0, at the significance level of alpha = 0.05.
+## 
+## Bounds on omitted variable bias:
+## 
+## --The table below shows the maximum strength of unobserved confounders with association with the treatment and the outcome bounded by a multiple of the observed explanatory power of the chosen benchmark covariate(s).
+## 
+##  Bound Label R2dz.x R2yz.dx   Treatment Adjusted Estimate Adjusted Se
+##      1x gini 0.0046  0.0898 treat_dicho           -0.0103      0.0092
+##      2x gini 0.0093  0.1797 treat_dicho           -0.0040      0.0088
+##      3x gini 0.0139  0.2695 treat_dicho            0.0023      0.0083
+##  Adjusted T Adjusted Lower CI Adjusted Upper CI
+##     -1.1124           -0.0284            0.0078
+##     -0.4567           -0.0213            0.0132
+##      0.2739           -0.0140            0.0186
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(estimation\_sensitivity)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{3-estimation_files/figure-latex/sensitivity-1.pdf}}
+sensitivity with ols only; ipw/matching weights mess it up
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(estimation\_model, estimation\_sensitivity)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{8. Robustness checks:}\label{robustness-checks}
+
+Falsos Positivos, State + Paramilitaries, And any kind of violence
+Changing time
+
+\end{document}

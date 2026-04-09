@@ -1,0 +1,235 @@
+---
+title: "Descriptive Stats"
+author: "Sofía Granados and Linette Page"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+Last edited: Jun 12 2025 2:30am SG
+
+
+```{r load data and packages, warning=FALSE, include=FALSE, message=FALSE}
+library(tidyverse)
+library(estimatr)
+library(Matching)
+library(ebal)
+library(kableExtra)
+library(modelsummary)
+library(stats)
+library(MatchIt)
+library(WeightIt)
+#install.packages("devtools")
+#devtools::install_github("chadhazlett/kbal") #installing chad's kbal
+library(kbal)
+library(sensemakr)
+library(RColorBrewer)
+library("cobalt")
+
+# Working directory for all to work - Comment as needed!!!!
+setwd("/Users/sofiagranados/Library/CloudStorage/Dropbox/Page and Granados") # For SG
+#setwd("~/Library/CloudStorage/Dropbox/Page and Granados") # For LP
+
+full_dataset <- read_csv("data/out/full_dataset.csv")
+estimation_data <- read_csv("data/out/estimation_data.csv")
+```
+
+# 1. Descriptive statistics
+
+## 1.1 Histogram for ETV (time and number of incidents, color by actor faceted by type)
+```{r ETV histogram jep}
+
+full_dataset |>
+  dplyr::select(contains(c("year", "_jep"))) |> #types
+  group_by(year) |> #time
+  pivot_longer(-year, names_to = "jep", values_to = "num") |> #get column of count
+  mutate(
+    perp = case_when( #make perpetrator column
+      grepl("Guerr", jep) ~ "Guerrilla",
+      grepl("Param", jep) ~ "Paramilitary",
+      grepl("State", jep) ~ "State",
+      grepl("Other", jep) ~ "Other",
+      grepl("total", jep) ~ "Total",
+      grepl("Multiple", jep) ~ "Multiple"
+    )
+  ) |>
+  mutate(
+    type = case_when( #make violence type column
+      grepl("Hom", jep) ~ "Homicide",
+      grepl("Dis", jep) ~ "Disappearence",
+      grepl("Kid", jep) ~ "Kidnapping",
+      grepl("Rec", jep) ~ "Recruitment"
+    )
+  ) |>
+  filter(!perp %in% c("Total", "Other", "Multiple")) |> #remove the total
+  ggplot(aes(x = year, y = num, fill = type)) + #plot count by year; type by color
+    geom_col() +
+    facet_wrap(~perp) +
+  scale_fill_brewer(palette = "PuOr", name = "Violence Type") +
+  labs(
+    title = "Victims by type and perpetrator, 1978-2018",
+    caption = "Data from CEV - JEP - HRDAG",
+    x = "Year",
+    y = "Number of Victims"
+  ) +
+  theme_minimal()
+
+```
+
+```{r ETV histogram jep state only}
+
+full_dataset |>
+  dplyr::select(contains(c("year", "_jep"))) |> #types
+  group_by(year) |> #time
+  pivot_longer(-year, names_to = "jep", values_to = "num") |> #get column of count
+  mutate(
+    perp = case_when( #make perpetrator column
+      grepl("State", jep) ~ "State"
+    )
+  ) |>
+  filter(perp == "State") |>
+  mutate(
+    type = case_when( #make violence type column
+      grepl("Hom", jep) ~ "Homicide",
+      grepl("Dis", jep) ~ "Disappearence",
+      grepl("Kid", jep) ~ "Kidnapping",
+      grepl("Rec", jep) ~ "Recruitment"
+    )
+  ) |>
+  ggplot(aes(x = year, y = num, fill = type)) + #plot count by year; type by color
+    geom_col() +
+    facet_wrap(~perp) +
+  geom_vline(xintercept = c(2003, 2011), color = "mediumblue", size=0.5) +
+  labs(
+    title = "Victims of state-base violence by type, 1978-2018",
+    x = "Year",
+    y = "Number of Victims",
+    caption = "Data from CEV - JEP - HRDAG"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "PuOr", name = "Violence Type")
+
+```
+```{r ETV histogram cnmh - DELETE?}
+full_dataset |>
+  dplyr::select(contains(c("year", "_cnmh"))) |> 
+  group_by(year) |> #time
+  pivot_longer(-year, names_to = "cnmh", values_to = "num") |> #get column of count
+  mutate(
+    perp = case_when( #make perpetrator column
+      grepl("guerrilla", cnmh) ~ "Guerrilla",
+      grepl("paramilitary", cnmh) ~ "Paramilitary",
+      grepl("state", cnmh) ~ "State"
+    )
+  ) |>
+  mutate(
+    type = case_when( #make violence type column
+      grepl("forced_disappearence", cnmh) ~ "forced_disappearence",
+      grepl("kidnapping", cnmh) ~ "kidnapping",
+      grepl("massacre", cnmh) ~ "massacre",
+      grepl("property_damage", cnmh) ~ "property_damage",
+      grepl("mine", cnmh) ~ "mine",
+      grepl("recruitment", cnmh) ~ "recruitment",
+      grepl("selective_assasination", cnmh) ~ "selective_assasination",
+      grepl("sexual", cnmh) ~ "sexual",
+      grepl("terrorist", cnmh) ~ "terrorist"
+    )
+  ) |>
+  ggplot(aes(x = year, y = num, fill = type)) + #plot count by year; type by color
+    geom_col() +
+    facet_wrap(~perp) +
+  labs(
+    title = "Counts of violence by type and perpetrator, 1978-2018",
+    caption = "Data from Centro Nacional de Memoria Historica (CNMH)"
+  ) +
+  theme_minimal()
+
+```
+
+
+```{r ETV histogram falsos positivos}
+full_dataset |>
+  dplyr::select(contains(c("year", "_fal_pos"))) |> 
+  group_by(year) |> #time
+  pivot_longer(-year, names_to = "fal_pos", values_to = "num") |> #get column of count
+  mutate(
+    type = case_when( #make violence type column
+      grepl("forced_disappearence", fal_pos) ~ "forced disappearence",
+      grepl("massacre", fal_pos) ~ "massacre",
+      grepl("selective_assasination", fal_pos) ~ "homicide",
+      grepl("sexual", fal_pos) ~ "sexual violence"
+    )
+  ) |>
+  ggplot(aes(x = year, y = num, fill = type)) + #plot count by year; type by color
+  geom_vline(xintercept = c(2003, 2011), color = "mediumblue", size=0.5) +
+    geom_col() +
+    labs(
+    title = "Victims of False Positives by type, 1978-2018",
+    caption = "Data from Centro Nacional de Memoria Historica (CNMH)", 
+    x = "Year",
+    y = "Number of Victims"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "PuOr", name = "Violence Type")
+
+```
+
+```{r ETV histogram state violence}
+full_dataset |>
+  dplyr::select(contains(c("year", "_State_jep"))) |> 
+  group_by(year) |> #time
+  pivot_longer(-year, names_to = "state", values_to = "num") |> #get column of count
+  mutate(
+    type = case_when( #make violence type column
+      grepl("Dis_State_jep", state) ~ "Forced disappearence",
+      grepl("Kid_State_jep", state) ~ "Kidnapping",
+      grepl("Hom_State_jep", state) ~ "Homicide",
+      grepl("Rec_State_jep", state) ~ "Recuitment"
+    )
+  ) |>
+  ggplot(aes(x = year, y = num, fill = type)) + #plot count by year; type by color
+  geom_vline(xintercept = c(2003, 2011), color = "mediumblue", size=0.5) +
+    geom_col() +
+    labs(
+    title = "Victims of State-based violence by type, 1978-2018",
+    caption = "Data from Centro Nacional de Memoria Historica (CNMH)", 
+    x = "Year",
+    y = "Number of Victims"
+  ) +
+  theme_minimal() +
+  scale_fill_brewer(palette = "PuOr", name = "Violence Type")
+
+```
+
+
+TODO: show data with outliers in a better way...
+```{r ETV per 10000}
+
+estimation_data |>
+  dplyr::select(contains(c("_dh", "_cnmh", "_jep", "false_pos"))) |> #types
+  pivot_longer(everything(), names_to = "fal_pos", values_to = "num") |> #get column of count
+  ggplot(aes(x = num)) + #plot count by year; type by color
+    geom_histogram(binwidth = 2) +
+    facet_wrap(~fal_pos)
+  
+
+```
+
+
+## 1.2 Density plot for peace support
+```{r peace density plot}
+estimation_data |>
+  ggplot(aes(x = trust_plebi_yes)) +
+    geom_density() +
+    labs(
+    title = "Density plot of peace support in 2016 plebiscite, by municipality",
+    caption = "Data from La Misión de Observación Electoral",
+    x = "proportion of 'yes' vote"
+  ) +
+  theme_minimal()
+  
+```
+
+```{r remove}
+rm(estimation_data, full_dataset)
+```

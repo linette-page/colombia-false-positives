@@ -1,0 +1,52 @@
+---
+title: "200c_project"
+author: "Linette Page and Sofia Granados"
+date: "2025-06-01"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question and theoretical argument - lit??
+SOFIA
+
+# Data
+SOFIA
+
+# Descriptive Statistics
+SOFIA
+
+## Assumptions
+SOFIA
+
+# Models
+## Balance table
+
+
+## Matching
+
+### Assumptions
+
+### Application
+
+
+## Weighting
+
+
+### Application
+
+
+# Sensitivity Analysis
+
+## Assumptions
+
+## Application
+
+
+# Discussion
+
+# Future
+- cutoff of incidents per municipality - would having at least 25 be different than 0 or 1?
+- Survey data
