@@ -20,6 +20,7 @@ library(tidyverse)
 
 ###load data: 4487 obs and 15 var----
 plebiscite <- read_csv("Dropbox/Page and Granados/data/in/trust/2016_Plebiscite.csv")
+#plebiscite <- read_csv("../../data/in/trust/2016_Plebiscite.csv") #linette
 
 ###reshape data----
 clean_trust <- plebiscite |>
@@ -36,9 +37,9 @@ clean_trust <- clean_trust |>
     total = NO + SI + `VOTOS NULOS` + `VOTOS NO MARCADOS`,
     plebi_yes_prop = SI / total
   ) |>
-  select(codmpio, plebi_yes_prop) #select variables
+  select(codmpio, plebi_yes_prop, total) #select variables
 
 ###save----
-#write_csv(clean_trust, "Dropbox/Page and Granados/data/out/clean_trust.csv")
+#write_csv(clean_trust, "../data/out/clean_trust.csv")
 
 rm(plebiscite)
