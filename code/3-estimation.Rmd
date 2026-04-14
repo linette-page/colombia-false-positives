@@ -20,6 +20,7 @@ library(modelsummary)
 library(stats)
 library(MatchIt)
 library(WeightIt)
+library(gridExtra)
 #install.packages("devtools")
 #devtools::install_github("chadhazlett/kbal") #installing chad's kbal
 library(kbal)
@@ -29,10 +30,11 @@ library("cobalt")
 
 # Working directory for all to work - Comment as needed!!!!
 #setwd("/Users/sofiagranados/Library/CloudStorage/Dropbox/Page and Granados") # For SG
-#setwd("~/Library/CloudStorage/Dropbox/Page and Granados") # For LP
-
 full_dataset <- read_csv("data/out/full_dataset.csv")
 estimation_data <- read_csv("data/out/estimation_data.csv")
+
+full_dataset <- read_csv("../data/out/full_dataset.csv") #linette
+estimation_data <- read_csv("../data/out/estimation_data.csv") #linette
 ```
 
 # 2. State-based violence (Dissappearences and homicides by the state)
@@ -47,9 +49,15 @@ estimation_data$treat <- estimation_data$etv_dh
 #estimation_data$treat <- estimation_data$etv_all_cnmh
 #estimation_data$treat <- estimation_data$etv_false_pos
 
-#dichotomized treatment
+#versions of treatment
 estimation_data <- estimation_data |>
-  mutate(treat_dicho = ifelse(treat > 0, 1, 0))
+  mutate(treat_dicho = ifelse(treat > 0, 1, 0),
+         treat_conti = treat,
+         treat_cutoff = ifelse(treat > 5, 1, 0), #choose number cutoff
+         treat_prop = treat / pop_total)
+
+#treatments
+treatments <- c("treat_dicho", "treat_conti", "treat_cutoff", "treat_prop")
 
 #missings
 #TODO: NA's found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU TEST IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.
@@ -720,9 +728,15 @@ rm(estimation_model, estimation_sensitivity)
 #estimation_data$treat <- estimation_data$etv_all_cnmh
 estimation_data$treat <- estimation_data$etv_false_pos
 
-#dichotomized treatment
+#versions of treatment
 estimation_data <- estimation_data |>
-  mutate(treat_dicho = ifelse(treat > 0, 1, 0))
+  mutate(treat_dicho = ifelse(treat > 0, 1, 0),
+         treat_conti = treat,
+         treat_cutoff = ifelse(treat > 5, 1, 0), #choose number cutoff
+         treat_prop = treat / pop_total)
+
+#treatments
+treatments <- c("treat_dicho", "treat_conti", "treat_cutoff", "treat_prop")
 
 #missings
 #TODO: NA's found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU TEST IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.
