@@ -156,9 +156,9 @@ full_dataset <- read_csv("data/out/full_dataset.csv")
   
 covariates <- c("codmpio", "uribe_2002_proportion", "uribe_2006_proportion", 
                 "avg_schooling", "literacy", "pop_total", "prop_rural", 
-                "gdp_pcap_cons2005", "mpi", "gini") #all covariates to add
+                "gdp_pcap_cons2005", "mpi", "gini", "justice_percent", "rank_w_any", "fp", "tp") #all covariates to add
 
-merging <- setNames(data.frame(matrix(ncol = 10, nrow = 0)), #empty merging dataset
+merging <- setNames(data.frame(matrix(ncol = 14, nrow = 0)), #empty merging dataset
                     covariates)
 
 muni <- full_dataset |> #get unique list of all municipalities
@@ -330,7 +330,7 @@ full_dataset |> filter(codmpio == 50686) |> dplyr::select(year, uribe_2002_votes
   ## Save dataset
   
   write_csv(estimation_data, "data/out/estimation_data.csv")
-  
+
   ## Looking at the result:
   summary_report <- final_data |>
     select(-c("mpio","dpto","codmpio")) |>
