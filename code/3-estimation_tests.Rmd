@@ -53,10 +53,13 @@ estimation_data$treat <- estimation_data$etv_dh
 estimation_data <- estimation_data |>
   mutate(treat_dicho = ifelse(treat > 0, 1, 0),
          treat_conti = treat,
-         treat_cutoff = ifelse(treat > 5, 1, 0)) #choose number cutoff
+         treat_cutoff = ifelse(treat > 5, 1, 0)
+         #treat_extremes = ifelse(treat == 0 | treat > 5, treat, NA),
+         #treat_extremes = ifelse(treat_extremes > 0, 1, 0) 
+         ) 
 
 #treatments
-treatments <- c("treat_dicho", "treat_conti", "treat_cutoff")
+treatments <- c("treat_dicho", "treat_conti", "treat_cutoff") #, "treat_extremes"
 
 
 #missings
@@ -67,6 +70,7 @@ estimation_data |>
 
 estimation_nona <- estimation_data |>
   drop_na() #1115 obs to 1006 - which ones?
+#extremes: removed because NAs - becomes 561
 
 #covariates
 covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini", "etv_state_pre", "etv_guerr_pre", "hist_land_conflict")
@@ -107,7 +111,7 @@ for (i in 1:length(treatments)) {
 
 for (i in 1:length(treatments)) {
   lm_naive <- lm_robust(list_formulas[[i]], data = estimation_nona) 
-  modelsummary(lm_naive, output = paste0("outputs/tests/lm_naive_", treatments[[i]], ".png"))
+  #modelsummary(lm_naive, output = paste0("outputs/tests/lm_naive_", treatments[[i]], ".png"))
 }
 
 ```
@@ -126,7 +130,7 @@ for (i in 1:length(treatments)) {
 
 for (i in 1:length(treatments)) {
   lm_controls <- lm_robust(list_formulas[[i]], data = estimation_nona) 
-  modelsummary(lm_controls, output = paste0("outputs/tests/lm_robust_", treatments[[i]], ".png"))
+  #modelsummary(lm_controls, output = paste0("outputs/tests/lm_robust_", treatments[[i]], ".png"))
 }
 
 #lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona) #dicotomized
@@ -144,8 +148,16 @@ estimation_nona |>
   ggplot(aes(x = treat)) + #spread of etv proportion
     geom_density()
 
+
 table(estimation_nona$treat)[1] #number of zero state violence
 table(estimation_nona$treat)[[1]]/nrow(estimation_nona) #percent of municipalities that have not experienced any state violence
+
+table(estimation_nona$treat_cutoff)[1] #for cutoff
+table(estimation_nona$treat_cutoff)[[1]]/nrow(estimation_nona)
+
+table(estimation_nona$treat_extremes)[1] #for extremes
+table(estimation_nona$treat_extremes)[[1]]/nrow(estimation_nona)
+
 ```
 
 
