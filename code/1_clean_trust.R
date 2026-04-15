@@ -32,7 +32,8 @@ clean_peace <- plebiscite |>
   pivot_wider( #one row for each municipality
     names_from = nomparti,
     values_from = votos
-  )
+  ) |> 
+  mutate(codmpio = as.numeric(codmpio))
 
 ###calculate proportion----
 clean_peace <- clean_peace |>
@@ -125,6 +126,5 @@ clean_trust <- clean_peace |>
   left_join(clean_military, by = join_by(codmpio))
 
 ###save----
-#write_csv(clean_trust, "../data/out/clean_trust.csv")
+write_csv(clean_trust, paste0(path, "data/out/clean_trust.csv"))
 
-rm(plebiscite)

@@ -27,10 +27,13 @@ suppressMessages(library(tidyverse))
 suppressMessages(library(dplyr))
 suppressMessages(library(haven))
 
-# Getting master dataset
+# Getting main dataset
 
 full_dataset <- read_csv("data/out/full_dataset.csv")
 glimpse(full_dataset)
+
+path <- ("~/Dropbox/Page and Granados/") # Sofia
+#path <- ("../../") # Linette
 
 ## 2. Peace Support ------------------------------------------------------------
 
@@ -295,7 +298,7 @@ full_dataset |> filter(codmpio == 50686) |> dplyr::select(year, uribe_2002_votes
   
   # Getting the data from Panel CEDE
  
-  violence_panel <- read_dta("data/in/covariates/Non-state actor presence/PANEL_CONFLICTO_Y_VIOLENCIA(2024).dta")
+  violence_panel <- read_dta(paste0(path, "data/in/covariates/Non-state actor presence/PANEL_CONFLICTO_Y_VIOLENCIA(2024).dta"))
   
   sum(is.na(full_dataset$plebi_yes_prop))
   df_missing <- full_dataset |> 
@@ -326,7 +329,7 @@ full_dataset |> filter(codmpio == 50686) |> dplyr::select(year, uribe_2002_votes
 
   ## Save dataset
   
-  #write_csv(estimation_data, "data/out/estimation_data.csv")
+  write_csv(estimation_data, "data/out/estimation_data.csv")
   
   ## Looking at the result:
   summary_report <- final_data |>
