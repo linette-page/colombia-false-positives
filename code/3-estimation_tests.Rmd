@@ -53,11 +53,11 @@ estimation_data$treat <- estimation_data$etv_dh
 estimation_data <- estimation_data |>
   mutate(treat_dicho = ifelse(treat > 0, 1, 0),
          treat_conti = treat,
-         treat_cutoff = ifelse(treat > 5, 1, 0), #choose number cutoff
-         treat_prop = treat / pop_total)
+         treat_cutoff = ifelse(treat > 5, 1, 0)) #choose number cutoff
 
 #treatments
-treatments <- c("treat_dicho", "treat_conti", "treat_cutoff", "treat_prop")
+treatments <- c("treat_dicho", "treat_conti", "treat_cutoff")
+
 
 #missings
 #TODO: NA's found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU TEST IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.
@@ -74,13 +74,23 @@ covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini",
 #all: covariates <- c("uribe_2002_proportion", "uribe_2006_proportion", "avg_schooling", "literacy", "log_pop", "prop_rural", "gdp_pcap_cons2005", "mpi", "gini", "etv_state_pre", "etv_nonstate_pre", "dem_security", "hist_land_conflict")
 
 
-balance_formula <- as.formula(paste("treat_dicho ~ ", paste(covariates, collapse=" + ")))
+list_formulas <- list()
+for (i in 1:length(treatments)) {
+  list_formulas[[i]] <- as.formula(paste(treatments[i], " ~ ", paste(covariates, collapse=" + ")))
+}
 
 # calculate propensity scores
-estimation_nona$ps <- stats::glm(balance_formula, 
+for (i in 1:length(treatments)) {
+  col_name <- paste0("ps_", treatments[i])
+  estimation_nona[[col_name]] <- stats::glm(list_formulas[[i]], 
                                  data = estimation_nona, 
-                                 family = binomial(link = logit)
+                                 #family = binomial(link = logit) #only for binary
                                  )$fitted.values
+}
+
+
+estimation_nona$treat_type <- estimation_nona$treat_dicho
+balance_formula <- list_formulas[[1]]
 ```
 
 ## 2.2 Naive regression
@@ -88,7 +98,17 @@ estimation_nona$ps <- stats::glm(balance_formula,
 Estimated treatment effect:
 ```{r naive}
 #naive <- lm_robust(trust_plebi_yes ~ treat, data = estimation_nona) #continuous
-lm_naive <- lm_robust(trust_plebi_yes ~ treat_dicho, data = estimation_nona) #dichotomized
+#lm_naive <- lm_robust(trust_plebi_yes ~ treat_dicho, data = estimation_nona)
+
+list_formulas <- list()
+for (i in 1:length(treatments)) {
+  list_formulas[[i]] <- as.formula(paste("trust_plebi_yes ~ ",  treatments[i]))
+}
+
+for (i in 1:length(treatments)) {
+  lm_naive <- lm_robust(list_formulas[[i]], data = estimation_nona) 
+  modelsummary(lm_naive, output = paste0("outputs/tests/lm_naive_", treatments[[i]], ".png"))
+}
 
 ```
 
@@ -99,8 +119,20 @@ lm_naive <- lm_robust(trust_plebi_yes ~ treat_dicho, data = estimation_nona) #di
 
 #lm_robust(trust_plebi_yes ~ treat + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict, data = estimation_nona) #continuous
 
-lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona) #dicotomized
+list_formulas <- list()
+for (i in 1:length(treatments)) {
+  list_formulas[[i]] <- as.formula(paste("trust_plebi_yes ~ ", treatments[i], " + ", paste(covariates, collapse=" + ")))
+}
+
+for (i in 1:length(treatments)) {
+  lm_controls <- lm_robust(list_formulas[[i]], data = estimation_nona) 
+  modelsummary(lm_controls, output = paste0("outputs/tests/lm_robust_", treatments[[i]], ".png"))
+}
+
+#lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona) #dicotomized
 #all: trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict, data = estimation_nona
+
+
 ```
 
 ## 2.4. Matching
@@ -132,12 +164,35 @@ estimation_nona |>
   theme_minimal() +
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
   scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+
+estimation_nona |>
+  dplyr::select(all_of(covariates), treat_cutoff) |> #choose covariates
+  reshape2::melt(all_of(covariates), id.vars = "treat_cutoff", na.rm = T) |> #put them all in one column
+  ggplot(aes(x = value)) +
+  geom_density(aes(col = as_factor(treat_cutoff)), alpha = 0.4) +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = paste0("PDF of Covariates by Treatment Status"),
+       y = "Density", col = "Treatment") +
+  labs(col = "Treatment") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+
+#can't do continuous
 ```
 
 
 ```{r balance table}
 
-match_info <- MatchBalance(balance_formula, data = estimation_nona, nboots = 1000, print.level = 0) #checking balance before matching
+#do one or the other
+list_formulas <- list()
+for (i in 1:length(treatments)) {
+  list_formulas[[i]] <- as.formula(paste(treatments[i], " ~ ", paste(covariates, collapse=" + ")))
+}
+
+match_info <- MatchBalance(list_formulas[[1]], data = estimation_nona, nboots = 1000, print.level = 0) #checking balance before matching
+match_info <- MatchBalance(list_formulas[[3]], data = estimation_nona, nboots = 1000, print.level = 0) #checking balance before matching
+
 
 balance_test_before <- baltest.collect(match_info, var.names = covariates, after = FALSE) #gets numbers from match_info
 balance_test_before <- balance_test_before[, c("mean.Tr", "mean.Co", "T pval", "KS pval")] #rename columns
@@ -177,9 +232,11 @@ caliper: removes units with no common support
 
 ```{r matching}
 exact_matches <- ifelse(colnames(estimation_nona[,covariates]) %in% c("dem_security", "hist_land_conflict"), TRUE, FALSE) #distinguish between continuous and categorical (which you can exact match on)
+#fix if we change covariates
+
 
 match_model_1 <- Match(Y = estimation_nona$trust_plebi_yes,
-                       Tr = estimation_nona$treat_dicho,
+                       Tr = estimation_nona$treat_type,
                        X = estimation_nona[, covariates],
                        M = 1, # one-to-one matching
                        exact = exact_matches,
@@ -192,7 +249,10 @@ match_model_1 <- Match(Y = estimation_nona$trust_plebi_yes,
 #get dataset of just matched observations
 match_data_1 <- estimation_nona[c(match_model_1$index.treated, 
                                   match_model_1$index.control),]
-table(match_data_1$treat_dicho) #596 treated, 596 control
+table(match_data_1$treat_type) #596 treated, 596 control
+
+
+
 
 # #run again - doesn't make sense to do
 # match_model_2 <- Match(Y = match_data_1$trust_plebi_yes,
@@ -219,8 +279,11 @@ summary(match_model_1)
 # T-stat.....  -1.4367 
 # p.val......  0.1508
 
+#png("summary_output.png")
+#modelsummary(lm_naive, output = paste0("outputs/tests/lm_naive_", treatments[[i]], ".png"))
+
 #calculate ATT manually
-mean(match_data_1$trust_plebi_yes[match_data_1$treat_dicho == 1]) - mean(match_data_1$trust_plebi_yes[match_data_1$treat_dicho == 0]) #0.005162898
+mean(match_data_1$trust_plebi_yes[match_data_1$treat_type == 1]) - mean(match_data_1$trust_plebi_yes[match_data_1$treat_type == 0]) #0.005162898
 
 #naive matching
 #lm_match <- lm_robust(trust_plebi_yes ~ treat_dicho, data = match_data_1) #0.005162898
@@ -728,15 +791,9 @@ rm(estimation_model, estimation_sensitivity)
 #estimation_data$treat <- estimation_data$etv_all_cnmh
 estimation_data$treat <- estimation_data$etv_false_pos
 
-#versions of treatment
+#dichotomized treatment
 estimation_data <- estimation_data |>
-  mutate(treat_dicho = ifelse(treat > 0, 1, 0),
-         treat_conti = treat,
-         treat_cutoff = ifelse(treat > 5, 1, 0), #choose number cutoff
-         treat_prop = treat / pop_total)
-
-#treatments
-treatments <- c("treat_dicho", "treat_conti", "treat_cutoff", "treat_prop")
+  mutate(treat_dicho = ifelse(treat > 0, 1, 0))
 
 #missings
 #TODO: NA's found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU TEST IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.
