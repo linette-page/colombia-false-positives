@@ -22,9 +22,10 @@ data <- acemoglu_data |>
   select(codmpio = M_code, #Mpio 
          year,
          justice_percent, ## Judicial inefficiency: They construct the measures using data from complaints against public functionaries. From the Inspector General Office (Procuraduria) --> this is an event-based dataset of complaints against public servants from 1995 to 2011.
-         rank_w_any, # Colonel in charge (weighted share) - Brigades rank: They reconstruct the army structure and identify colonel ranks by brigade from 1991 to 2010 with an original dataset from webpage archives. Specifically, they used the Colombian army's web-page https://www.ejercito.mil.co/conozcanos/organigrama/unidades militares which includes information about brigade leadership and jurisdictions, together with old versions of the webpage to reconstruct historical ranks as crawled by the Internet Archives Way Back Machine https://archive.org/web/. In cases where neither source provided information on ranks by brigade, they searched for news in El Tiempo's digital archive to identify ranks. --> Can we replicate this????
+         rank_w_any, # Colonel in charge (weighted share) - Brigades rank: They reconstruct the army structure and identify colonel ranks by brigade from 1991 to 2010 with an original dataset from webpage archives. Specifically, they used the Colombian army's web-page https://www.ejercito.mil.co/conozcanos/organigrama/unidades militares which includes information about brigade leadership and jurisdictions, together with old versions of the webpage to reconstruct historical ranks as crawled by the Internet Archives Way Back Machine https://archive.org/web/. In cases where neither source provided information on ranks by brigade, they searched for news in El Tiempo's digital archive to identify ranks. --> Can we replicate this???? 
+         # "We compute a weighted share using the population of all municipalities under a brigade’s jurisdiction as weights to recognize that larger brigades may be more important"
          rank_s_any, # Colonel in charge (unweighted share)
-         rank_w_bri, #Colonel in charge regular (weighted share)
+         rank_w_bri, # Colonel in charge regular (weighted share)
          rank_w_mob, # Colonel in charge mob (weighted share)
          rank_any,# Colonel in charge (dummy)
          lat1, # Municipality latitude - might be helpful if we decide to do maps

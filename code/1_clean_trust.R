@@ -18,10 +18,12 @@
 ###packages----
 library(tidyverse)
 library(haven)
+library(readxl)
 
-###load data: 4487 obs and 15 var----
-plebiscite <- read_csv("Dropbox/Page and Granados/data/in/trust/2016_Plebiscite.csv")
-plebiscite <- read_csv("../../data/in/trust/2016_Plebiscite.csv") #linette
+###load data: 4487 obs and 15 var ----
+path <- ("~/Dropbox/Page and Granados/") # Sofia
+#path <- ("../../") # Linette
+plebiscite <- read_csv(paste0(path, "data/in/trust/2016_Plebiscite.csv"))
 
 ###reshape data----
 clean_peace <- plebiscite |>
@@ -30,28 +32,26 @@ clean_peace <- plebiscite |>
   pivot_wider( #one row for each municipality
     names_from = nomparti,
     values_from = votos
-  )
+  ) |> 
+  mutate(codmpio = as.numeric(codmpio))
 
 ###calculate proportion----
-clean_peace <- clean_trust |>
+clean_peace <- clean_peace |>
   mutate(
     total = NO + SI + `VOTOS NULOS` + `VOTOS NO MARCADOS`,
     plebi_yes_prop = SI / total
   ) |>
   select(codmpio, plebi_yes_prop, total) #select variables
 
-# cleaning trust (military) =============================================================
+# cleaning trust (institutions) =============================================================
 
-MAPS <- readRDS("../../data/in/trust/MAPS/MAPS public dataset Wave 1+2.rds") #linette
-dane <- read_excel("../../data/in/trust/MAPS/MAPS versión pública - Codebook.xlsx", range = "C42:D1163")
+MAPS <- readRDS(paste0(path,"data/in/trust/MAPS/MAPS public dataset Wave 1+2.rds"))
+dane <- read_excel(paste0(path, "/data/in/trust/MAPS/MAPS versión pública - Codebook.xlsx"), range = "C42:D1163", col_names = FALSE) |> 
+  select(mpio= ...1, codmpio = ...2)
 
 clean_military <- MAPS |>
-  mutate(codmpio = as.numeric(MAPS$p2_cod))
-
-zap_labels(clean_military$p2_cod) #type of data
-
-clean_military <- clean_military |>
-  select(codmpio, p19_a, p19_f, p19_u) |>
+  filter(wave == "Wave 1") |> # Keeping only 2019 surveys
+  select(mpio = p2_cod, p19_a, p19_f, p19_u) |>
   mutate(
     trust_pres = case_when(
       p19_a == "Don’t know" ~ NA,
@@ -76,9 +76,24 @@ clean_military <- clean_military |>
       p19_u == "Very little" ~ 2,
       p19_u == "Somewhat" ~ 3,
       p19_u == "A lot" ~ 4,
-    )
+    ),
+    trust_pres_sd = (trust_pres - mean(trust_pres, na.rm = TRUE)) / sd(trust_pres, na.rm = TRUE), 
+    trust_inst_sd = (trust_inst - mean(trust_inst, na.rm = TRUE)) / sd(trust_inst, na.rm = TRUE), 
+    trust_armed_sd = (trust_armed - mean(trust_armed, na.rm = TRUE)) / sd(trust_armed, na.rm = TRUE)
   ) |>
-  select(codmpio, trust_pres, trust_armed, trust_inst) #only 73 unique municipalities
+  select(mpio, trust_pres_sd, trust_armed_sd, trust_inst_sd) #only 73 unique municipalities # TODO: Standardize
+
+clean_military <- clean_military |>
+  left_join(dane, by = join_by(mpio), relationship = "many-to-many") 
+
+clean_military <- clean_military |> 
+  group_by(mpio, codmpio) |> 
+  summarise(
+    trust_pres_sd = mean(trust_pres_sd, na.rm = TRUE),
+    trust_armed_sd = mean(trust_armed_sd, na.rm = TRUE),
+    trust_inst_sd = mean(trust_inst_sd, na.rm = TRUE)
+  ) |> 
+  ungroup()
 
 #zap_labels(MAPS$p19_a)
 
@@ -111,6 +126,5 @@ clean_trust <- clean_peace |>
   left_join(clean_military, by = join_by(codmpio))
 
 ###save----
-#write_csv(clean_trust, "../data/out/clean_trust.csv")
+write_csv(clean_trust, paste0(path, "data/out/clean_trust.csv"))
 
-rm(plebiscite)
