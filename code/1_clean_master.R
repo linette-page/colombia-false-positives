@@ -1,6 +1,6 @@
 # Authors: Linette Page and Sofia Granados
 # Date created: May 30 2025
-# Last edited: May 30 2025 3:51 SG
+# Last edited: Apr 14 2026 SG
 # Description: This code merges and cleans the result of all datasets for covariates, violence data and trust
 # Input: covariates, trust, violence
 # Output: municipality-year level 
@@ -47,12 +47,17 @@ library(haven) # For .dta
   trust <- trust |> 
     mutate(codmpio = as.numeric(codmpio))
   
+  ### Acemoglu ----
+  acemoglu <- read_csv("data/out/clean_acemoglu.csv")
+  length(unique(acemoglu$codmpio)) # 1119 Municipalities 
+  
 ## 2. Merging -------------------------------------------------------------------
  
   full_dataset <- violence |> 
     full_join(violence_cev_jep, by = join_by(codmpio, year), relationship = "one-to-one")|>
     full_join(covariates, by = join_by(codmpio, year), relationship = "one-to-one")|>
     full_join(trust, by = join_by(codmpio)) |> 
+    full_join(acemoglu, by = join_by(codmpio, year)) |> 
     select(dpto, mpio = mpio.y, codmpio, everything())
   
   ### Cleaning municipality identifiers ------
