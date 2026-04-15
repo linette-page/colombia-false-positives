@@ -30,8 +30,8 @@ library("cobalt")
 
 # Working directory for all to work - Comment as needed!!!!
 #setwd("/Users/sofiagranados/Library/CloudStorage/Dropbox/Page and Granados") # For SG
-full_dataset <- read_csv("data/out/full_dataset.csv")
-estimation_data <- read_csv("data/out/estimation_data.csv")
+# full_dataset <- read_csv("data/out/full_dataset.csv")
+# estimation_data <- read_csv("data/out/estimation_data.csv")
 
 full_dataset <- read_csv("../data/out/full_dataset.csv") #linette
 estimation_data <- read_csv("../data/out/estimation_data.csv") #linette
