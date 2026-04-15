@@ -43,6 +43,7 @@ clean_peace <- clean_trust |>
 # cleaning trust (military) =============================================================
 
 MAPS <- readRDS("../../data/in/trust/MAPS/MAPS public dataset Wave 1+2.rds") #linette
+dane <- read_excel("../../data/in/trust/MAPS/MAPS versión pública - Codebook.xlsx", range = "C42:D1163")
 
 clean_military <- MAPS |>
   mutate(codmpio = as.numeric(MAPS$p2_cod))
