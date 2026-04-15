@@ -53,11 +53,10 @@ estimation_data$treat <- estimation_data$etv_dh
 estimation_data <- estimation_data |>
   mutate(treat_dicho = ifelse(treat > 0, 1, 0),
          treat_conti = treat,
-         treat_cutoff = ifelse(treat > 5, 1, 0), #choose number cutoff
-         treat_prop = treat / pop_total)
+         treat_cutoff = ifelse(treat > 5, 1, 0))
 
 #treatments
-treatments <- c("treat_dicho", "treat_conti", "treat_cutoff", "treat_prop")
+treatments <- c("treat_dicho", "treat_conti", "treat_cutoff")
 
 #missings
 #TODO: NA's found in data input.  IT IS HIGHLY RECOMMENDED THAT YOU TEST IF THE MISSING VALUES ARE BALANCED INSTEAD OF JUST DELETING THEM.
@@ -69,10 +68,13 @@ estimation_nona <- estimation_data |>
   drop_na() #1115 obs to 1006 - which ones?
 
 #covariates
-covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini", "etv_state_pre", "etv_guerr_pre", "hist_land_conflict")
+covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini", "etv_state_pre", "etv_guerr_pre", "hist_land_conflict", "justice_percent", "rank_w_any")
 #dropped: "uribe_2006_proportion", "avg_schooling", "literacy", "prop_rural", "mpi", "dem_security",
 #all: covariates <- c("uribe_2002_proportion", "uribe_2006_proportion", "avg_schooling", "literacy", "log_pop", "prop_rural", "gdp_pcap_cons2005", "mpi", "gini", "etv_state_pre", "etv_nonstate_pre", "dem_security", "hist_land_conflict")
 
+# #START HERE LINETTE
+# estimation_nona$treat_type <- estimation_nona$treat_dicho #CHANGE
+# balance_formula <- list_formulas[[1]] #CHANGE
 
 balance_formula <- as.formula(paste("treat_dicho ~ ", paste(covariates, collapse=" + ")))
 
@@ -97,10 +99,10 @@ lm_naive <- lm_robust(trust_plebi_yes ~ treat_dicho, data = estimation_nona) #di
 
 ```{r controls}
 
-#lm_robust(trust_plebi_yes ~ treat + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict, data = estimation_nona) #continuous
+#lm_robust(trust_plebi_yes ~ treat + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona) #continuous
 
-lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona) #dicotomized
-#all: trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict, data = estimation_nona
+lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona) #dicotomized
+#all: trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona
 ```
 
 ## 2.4. Matching
@@ -226,7 +228,7 @@ mean(match_data_1$trust_plebi_yes[match_data_1$treat_dicho == 1]) - mean(match_d
 #lm_match <- lm_robust(trust_plebi_yes ~ treat_dicho, data = match_data_1) #0.005162898
 
 #controls matching
-#lm_match_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_nonstate_pre + hist_land_conflict, data = match_data_1) #-0.0126571514
+#lm_match_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_nonstate_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_1) #-0.0126571514
 
 ```
 
@@ -303,7 +305,7 @@ plot(match_model_2, type = "density", interactive = FALSE) #densities of every c
 lm_match2 <- lm_robust(trust_plebi_yes ~ treat_dicho, weights = weights, data = match_data_2) #-0.0009941906
 
 #controls
-lm_match_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = match_data_2) #-0.01619626
+lm_match_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_2) #-0.01619626
 
 #use cobalt: https://kosukeimai.github.io/MatchIt/articles/assessing-balance.html#assessing-balance-with-cobalt
 
@@ -385,7 +387,7 @@ mean(match_data_ps$trust_plebi_yes[match_data_ps$treat_dicho == 1]) - mean(match
 lm_match_ps <- lm_robust(trust_plebi_yes ~ treat_dicho, data = match_data_ps) #0.03622134
 
 #controls matching
-lm_match_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = match_data_ps) #-0.0067888631
+lm_match_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_ps) #-0.0067888631
 ```
 
 ```{r balance after 2}
@@ -454,7 +456,7 @@ plot(match_balance_ps_2, type = "density", interactive = FALSE) #density plots o
 lm_match_ps2 <- lm_robust(trust_plebi_yes ~ treat_dicho, weights = weights, data = match_data_ps_2) #0.04700618
 
 #controls
-lm_match_ps_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, weights = weights, data = match_data_ps_2) #-0.0006025587
+lm_match_ps_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weights = weights, data = match_data_ps_2) #-0.0006025587
 
 #comparing propensity scores after matching
 ggplot(tibble(ps = match_data_ps_2$distance, 
@@ -515,7 +517,7 @@ todo: check how extreme the weights get / how few units are doing most of the wo
 lm_weight_ps <- lm_robust(trust_plebi_yes ~ treat_dicho, weight = IPW, data = estimation_nona) #0.04446162
 
 #controls matching
-lm_weight_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, weight = IPW, data = estimation_nona) #-0.005490477
+lm_weight_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weight = IPW, data = estimation_nona) #-0.005490477
 ```
 
 ```{r regression with weights - WeightIt version}
@@ -547,7 +549,7 @@ weight_model_kbal = kbal(allx = estimation_nona[, covariates],
 lm_weight_ker <- lm_robust(trust_plebi_yes ~ treat_dicho, weights = weight_model_kbal$w, data = estimation_nona)
 
 #controls
-lm_weight_ker_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, weights = weight_model_kbal$w, data = estimation_nona)
+lm_weight_ker_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weights = weight_model_kbal$w, data = estimation_nona)
 
 # check the propensity scores before weighting
 plot(density(ps[D==1]), lwd = 2, ylim = c(0, 4.5), 
@@ -621,7 +623,7 @@ modelsummary(models,
              #vcov = "HC2",
              #statistic = "p.value",
              stars = TRUE,
-             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict",
+             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict|justice_percent|rank_w_any",
              gof_omit = "BIC|AIC|Log.Lik|F",
              add_rows = covariate_row,
              title = "The effect of Falsos Positivos cases on support for peace",
@@ -689,7 +691,7 @@ Hopefully using uribe 2002 as benchmark? gini?
 ```{r sensitivity}
 
 #The previous estimate requires the assumption of no unobserved confounders for unbiasedness.
-estimation_model <- lm(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona)
+estimation_model <- lm(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona)
 
 
 estimation_sensitivity <- sensemakr(model = estimation_model, 
@@ -748,9 +750,9 @@ estimation_nona <- estimation_data |>
   drop_na() #1115 obs to 1006 - which ones?
 
 #covariates
-covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini", "etv_state_pre", "etv_guerr_pre", "hist_land_conflict")
+covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini", "etv_state_pre", "etv_guerr_pre", "hist_land_conflict", "justice_percent", "rank_w_any")
 #dropped: "uribe_2006_proportion", "avg_schooling", "literacy", "prop_rural", "mpi", "dem_security",
-#all: covariates <- c("uribe_2002_proportion", "uribe_2006_proportion", "avg_schooling", "literacy", "log_pop", "prop_rural", "gdp_pcap_cons2005", "mpi", "gini", "etv_state_pre", "etv_nonstate_pre", "dem_security", "hist_land_conflict")
+#all: covariates <- c("uribe_2002_proportion", "uribe_2006_proportion", "avg_schooling", "literacy", "log_pop", "prop_rural", "gdp_pcap_cons2005", "mpi", "gini", "etv_state_pre", "etv_nonstate_pre", "dem_security", "hist_land_conflict", "justice_percent", "rank_w_any")
 
 
 balance_formula <- as.formula(paste("treat_dicho ~ ", paste(covariates, collapse=" + ")))
@@ -776,10 +778,10 @@ lm_naive <- lm_robust(trust_plebi_yes ~ treat_dicho, data = estimation_nona) #di
 
 ```{r controls_fp}
 
-#lm_robust(trust_plebi_yes ~ treat + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict, data = estimation_nona) #continuous
+#lm_robust(trust_plebi_yes ~ treat + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona) #continuous
 
-lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona) #dicotomized
-#all: trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict, data = estimation_nona
+lm_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona) #dicotomized
+#all: trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + uribe_2006_proportion + avg_schooling + literacy + log_pop + prop_rural + gdp_pcap_cons2005 + mpi + gini + etv_state_pre + etv_nonstate_pre + dem_security + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona
 ```
 
 
@@ -907,7 +909,7 @@ mean(match_data_1$trust_plebi_yes[match_data_1$treat_dicho == 1]) - mean(match_d
 #lm_match <- lm_robust(trust_plebi_yes ~ treat_dicho, data = match_data_1) #0.005162898
 
 #controls matching
-#lm_match_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_nonstate_pre + hist_land_conflict, data = match_data_1) #-0.0126571514
+#lm_match_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_nonstate_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_1) #-0.0126571514
 
 ```
 
@@ -984,7 +986,7 @@ plot(match_model_2, type = "density", interactive = FALSE) #densities of every c
 lm_match2 <- lm_robust(trust_plebi_yes ~ treat_dicho, weights = weights, data = match_data_2) #-0.0009941906
 
 #controls
-lm_match_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = match_data_2) #-0.01619626
+lm_match_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_2) #-0.01619626
 
 #use cobalt: https://kosukeimai.github.io/MatchIt/articles/assessing-balance.html#assessing-balance-with-cobalt
 
@@ -1066,7 +1068,7 @@ mean(match_data_ps$trust_plebi_yes[match_data_ps$treat_dicho == 1]) - mean(match
 lm_match_ps <- lm_robust(trust_plebi_yes ~ treat_dicho, data = match_data_ps) #0.03622134
 
 #controls matching
-lm_match_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = match_data_ps) #-0.0067888631
+lm_match_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_ps) #-0.0067888631
 ```
 
 ```{r balance after 2_fp}
@@ -1135,7 +1137,7 @@ plot(match_balance_ps_2, type = "density", interactive = FALSE) #density plots o
 lm_match_ps2 <- lm_robust(trust_plebi_yes ~ treat_dicho, weights = weights, data = match_data_ps_2) #0.04700618
 
 #controls
-lm_match_ps_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, weights = weights, data = match_data_ps_2) #-0.0006025587
+lm_match_ps_controls2 <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weights = weights, data = match_data_ps_2) #-0.0006025587
 
 #comparing propensity scores after matching
 ggplot(tibble(ps = match_data_ps_2$distance, 
@@ -1196,7 +1198,7 @@ todo: check how extreme the weights get / how few units are doing most of the wo
 lm_weight_ps <- lm_robust(trust_plebi_yes ~ treat_dicho, weight = IPW, data = estimation_nona) #0.04446162
 
 #controls matching
-lm_weight_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, weight = IPW, data = estimation_nona) #-0.005490477
+lm_weight_ps_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weight = IPW, data = estimation_nona) #-0.005490477
 ```
 
 ```{r regression with weights - WeightIt version_fp}
@@ -1230,7 +1232,7 @@ estimation_nona$ker_weights <- weight_model_kbal$w
 lm_weight_ker <- lm_robust(trust_plebi_yes ~ treat_dicho, weights = weight_model_kbal$w, data = estimation_nona)
 
 #controls
-lm_weight_ker_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, weights = weight_model_kbal$w, data = estimation_nona)
+lm_weight_ker_controls <- lm_robust(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weights = weight_model_kbal$w, data = estimation_nona)
 
 # check covariate balance before weighting
 estimation_nona |>
@@ -1316,7 +1318,7 @@ modelsummary(lm_weight_ker_controls,
              #vcov = "HC2",
              #statistic = "p.value",
              stars = TRUE,
-             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict",
+             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict|justice_percent|rank_w_any",
              gof_omit = "BIC|AIC|Log.Lik|F",
              title = "The effect of Falsos Positivos cases on support for peace, kernel weighted",
              escape = FALSE, #to fix bug in header; need to include "+ p < 0.1, * p < 0.05, ** p < 0.01, *** p < 0.001" somewhere
@@ -1344,7 +1346,7 @@ modelsummary(models,
              #vcov = "HC2",
              #statistic = "p.value",
              stars = TRUE,
-             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict",
+             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict|justice_percent|rank_w_any",
              gof_omit = "BIC|AIC|Log.Lik|F",
              add_rows = covariate_row,
              title = "The effect of Falsos Positivos cases on support for peace",
@@ -1387,7 +1389,7 @@ modelsummary(models,
              #vcov = "HC2",
              #statistic = "p.value",
              stars = TRUE,
-             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict",
+             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict|justice_percent|rank_w_any",
              gof_omit = "BIC|AIC|Log.Lik|F",
              add_rows = covariate_row,
              title = "The effect of Falsos Positivos cases on support for peace",
@@ -1488,7 +1490,7 @@ Hopefully using uribe 2002 as benchmark? gini?
 ```{r sensitivity_fp}
 
 #The previous estimate requires the assumption of no unobserved confounders for unbiasedness.
-estimation_model <- lm(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict, data = estimation_nona)
+estimation_model <- lm(trust_plebi_yes ~ treat_dicho + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona)
 
 
 estimation_sensitivity <- sensemakr(model = estimation_model, 
