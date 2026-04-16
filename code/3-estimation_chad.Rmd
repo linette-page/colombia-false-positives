@@ -1,0 +1,751 @@
+---
+title: "MPSA 2026 - estimation results for Chad"
+author: "Sofía Granados and Linette Page"
+date: "2026-04-16"
+output: pdf_document
+
+---
+
+Dichotomized treatment version: this PDF shows, in order:
+
+1. defining treatment
+2. balance of covariates
+3. Kernel weighting (potentially our main result)
+4. probably the appendix: all other types of matching and weighting, with balance tables and PDFs of covariates
+- naive
+- with controls
+- matching on covariates
+- matching on propensity scores
+- weighting on propensity scores
+5. table and graph of all results
+6. sensitivity analysis
+
+Each of the matching/weighting includes two options: Match() vs Matchit(); manual vs weightit(); how to choose which?
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+# 1. Set up
+
+```{r load data and packages, warning=FALSE, include=FALSE, message=FALSE}
+library(tidyverse)
+library(estimatr)
+library(Matching)
+library(ebal)
+library(kableExtra)
+library(modelsummary)
+library(stats)
+library(MatchIt)
+library(WeightIt)
+library(gridExtra)
+#install.packages("devtools")
+#devtools::install_github("chadhazlett/kbal") #installing chad's kbal
+library(kbal)
+library(sensemakr)
+library(RColorBrewer)
+library("cobalt")
+
+# Working directory for all to work - Comment as needed!!!!
+#setwd("/Users/sofiagranados/Library/CloudStorage/Dropbox/Page and Granados") # For SG
+# full_dataset <- read_csv("data/out/full_dataset.csv")
+# estimation_data <- read_csv("data/out/estimation_data.csv")
+
+full_dataset <- read_csv("../data/out/full_dataset.csv") #linette
+estimation_data <- read_csv("../data/out/estimation_data.csv") #linette
+```
+
+# 2. Data cleaning
+
+Treatment is disappearances and homicides by the state; calculated as the yearly rate by 10,000 inhabitants of cases for the period between 2003 and 2011 per municipality
+
+We have several options for the exact calculation of treatment:
+
+1. dichotomized, where any amount of violence is 1
+2. cutoff, where a certain rate is considered 1
+3. continuous - but we can't do balance tables/matching/weighting
+4. extremes, of no violence versus high violence
+
+## 2.1 choosing treatment and covariates
+
+```{r treat_definition}
+#select treatment
+estimation_data$treat <- estimation_data$etv_dh
+#other violence data options: $etv_all_jep, $etv_cnmh, $etv_all_cnmh, $etv_false_pos
+
+#versions of treatment
+estimation_data <- estimation_data |>
+  mutate(treat_type = ifelse(treat > 0, 1, 0))
+         #treat_conti = treat
+         #treat_cutoff = ifelse(treat > 5, 1, 0)
+         #treat_extremes = ifelse(treat == 0 | treat > 5, treat, NA)
+         #treat_extremes = ifelse(treat_extremes > 0, 1, 0)
+
+estimation_nona <- estimation_data |>
+  drop_na() #1115 obs to 1006 - which ones?; are the missing values balanced?
+
+#covariates
+covariates <- c("uribe_2002_proportion", "log_pop", "gdp_pcap_cons2005", "gini", "etv_state_pre", "etv_guerr_pre", "hist_land_conflict", "justice_percent", "rank_w_any")
+
+balance_formula <- as.formula(paste("treat_type ~ ", paste(covariates, collapse=" + ")))
+
+```
+
+
+### 2.2 Covariates
+A density plot of the yearly rate of cases per 10,000 per municipality; 
+followed by the exact number and proportion of control municipalities
+
+```{r treatment cutoff}
+estimation_nona |>
+  ggplot(aes(x = treat)) + #spread of etv proportion
+    geom_density()
+
+table(estimation_nona$treat)[1] #number of zero state violence
+table(estimation_nona$treat)[[1]]/nrow(estimation_nona) #percent of municipalities that have not experienced any state violence
+```
+
+#### 2.2.1 Covariate balance
+
+```{r balance plot before, fig.align='center'}
+
+estimation_nona |>
+  dplyr::select(all_of(covariates), treat_type) |> #choose covariates
+  reshape2::melt(all_of(covariates), id.vars = "treat_type", na.rm = T) |> #put them all in one column
+  ggplot(aes(x = value)) +
+  geom_density(aes(col = as_factor(treat_type)), alpha = 0.4) +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = paste0("PDF of Covariates by Treatment Status"),
+       y = "Density", col = "Treatment") +
+  labs(col = "Treatment") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+```
+
+```{r balance table before}
+
+match_info <- MatchBalance(balance_formula, data = estimation_nona, nboots = 1000, print.level = 0) #checking balance before matching
+
+balance_test_before <- baltest.collect(match_info, var.names = covariates, after = FALSE) #gets numbers from match_info
+balance_test_before <- balance_test_before[, c("mean.Tr", "mean.Co", "T pval", "KS pval")] #rename columns
+
+balance_test_before |> #output table
+  kable(booktabs = T, digits = 3, align = rep('c', 4),
+        col.names = c("Treatment Mean", "Control Mean", "T p-value", "KS p-value")) |>
+  kable_styling(full_width = F, position = "center")
+```
+
+# 3. Kernel balancing weights
+
+```{r kernel}
+# https://cran.r-project.org/web/packages/KRLS/KRLS.pdf
+
+weight_model_kbal = kbal(allx = estimation_nona[, covariates],
+                         treatment = estimation_nona$treat_type,
+                         printprogress = FALSE)
+
+#naive
+lm_weight_ker <- lm_robust(trust_plebi_yes ~ treat_type, weights = weight_model_kbal$w, data = estimation_nona)
+
+#controls
+lm_weight_ker_controls <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weights = weight_model_kbal$w, data = estimation_nona)
+
+#adding weights to main dataset
+estimation_nona$kernel_weights <- weight_model_kbal$w
+
+# calculate propensity scores
+estimation_nona$ps <- stats::glm(balance_formula, 
+                                 data = estimation_nona, 
+                                 family = binomial(link = logit)
+                                 )$fitted.values
+
+ps = estimation_nona$ps
+D = estimation_nona$treat_type
+```
+
+```{r}
+# Distribution of covariates, before and after kernel weighting
+
+# #after
+# estimation_nona |>
+#   dplyr::select(all_of(covariates), treat_type, kernel_weights) |> #choose covariates
+#   reshape2::melt(all_of(covariates), id.vars = "treat_type", na.rm = T) |> #put them all in one column
+#   ggplot(aes(x = value, weight = kernel_weights)) +
+#   geom_density(aes(col = as_factor(treat_type)), alpha = 0.4) +
+#   facet_wrap(~ variable, scales = "free") +
+#   labs(title = paste0("PDF of Covariates by Treatment Status, after kernel weights"),
+#        y = "Density", col = "Treatment") +
+#   labs(col = "Treatment") +
+#   theme_minimal() +
+#   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+#   scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+```
+
+Propensity scores before and after kernel weighting
+```{r kernel ps, fig.align='center'}
+
+# check the propensity scores before weighting
+plot(density(ps[D==1]), lwd = 2, ylim = c(0, 4.5), 
+     main="Distribution of propensity scores: before weighting")
+lines(density(ps[D==0]),lwd = 2, lty = 2)
+legend("topleft", legend = c("treated","controls"), lty = c(1, 2), lwd = 2)
+
+
+# check the propensity scores after weighting
+plot(density(ps[D==1], weight = weight_model_kbal$w[D==1]/sum(weight_model_kbal$w[D==1])), lwd = 2, ylim = c(0, 4.5), 
+     main="Distribution of propensity scores: Kernel weighted")
+lines(density(ps[D==0], weight = weight_model_kbal$w[D==0]/sum(weight_model_kbal$w[D==0])),lwd = 2, lty = 2)
+legend("topleft", legend = c("treated","controls"), lty = c(1, 2), lwd = 2)
+
+```
+
+Balance tables, before and after kernel weighting
+```{r kernel balance tables}
+
+# balance table before weighting
+
+bal.tab(balance_formula, data = estimation_nona,
+        disp = c("means"), un = FALSE, 
+        stats = c("mean.diffs"))
+
+# balance table after weighting
+
+bal.tab(balance_formula, data = estimation_nona,
+        weights = weight_model_kbal$w,
+        disp = c("means"), un = FALSE, 
+        stats = c("mean.diffs"))
+```
+
+```{r}
+#shows level of bias bound at each K; kbal() chooses where it is the lowest
+plot(x = weight_model_kbal$dist_record[1,],
+     y = sd(estimation_nona$trust_plebi_yes) * sqrt(55) * weight_model_kbal$dist_record[2,],
+     ylab="biasbound", 
+     xlab="Num. dims of K balanced",
+     pch=16,
+     main = "Dimensons of K and biasbound")
+
+ker_df <- as.data.frame(weight_model_kbal[["w"]])
+
+ker_df |>
+  ggplot(aes(x = weight_model_kbal[["w"]])) +
+    geom_density() +
+    labs(
+    title = "Density plot of kernel weights",
+    x = "weight"
+  ) +
+  theme_minimal()  +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment"))
+
+```
+
+Where treatment and control are the most balanced (ebalance convergence) and bias bound is as low as possible
+
+
+Results:
+```{r kernel results}
+
+summary(lm_weight_ker_controls)
+
+```
+
+
+# 4 Other versions
+
+## 4.1 Naive regression
+
+```{r naive}
+lm_naive <- lm_robust(trust_plebi_yes ~ treat_type, data = estimation_nona)
+```
+
+## 4.2 Naive + Control regression
+
+```{r controls}
+
+lm_controls <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona) 
+```
+
+## 4.3 Matching
+
+#### 4.3.1 Matching on covariates - Match() version
+
+Throws away non-matched control units
+
+- No replacement and one-to-one matching
+- with Match(): closest $X_i$ through normalized Euclidean distance
+- BiasAdjust = TRUE: bias correction to adjust for multiple continuous variables
+- other things to consider: how many matches, which algorithm (eg Coarse, pre-processing), whether to drop treatment units to remove bias, calipers to remove units with no common support
+
+
+First, creating a matched dataset:
+
+```{r matching}
+exact_matches <- ifelse(colnames(estimation_nona[,covariates]) %in% c("hist_land_conflict"), TRUE, FALSE) #distinguish between continuous and categorical (which you can exact match on)
+
+match_model_1 <- Match(Y = estimation_nona$trust_plebi_yes,
+                       Tr = estimation_nona$treat_type,
+                       X = estimation_nona[, covariates],
+                       M = 1, # one-to-one matching
+                       exact = exact_matches,
+                       caliper = 2, #0.25 standard deviations dropped
+                       Weight = 2, #inverse of variance
+                       replace = TRUE,
+                       estimand = "ATT", 
+                       BiasAdjust = TRUE) # bias adjustment
+
+#get dataset of just matched observations
+match_data_1 <- estimation_nona[c(match_model_1$index.treated, 
+                                  match_model_1$index.control),]
+table(match_data_1$treat_type)
+```
+
+```{r run matching again, warning=FALSE, include=FALSE, message=FALSE}
+# #run again - doesn't make sense to do
+# match_model_2 <- Match(Y = match_data_1$trust_plebi_yes,
+#                        Tr = match_data_1$treat_type,
+#                        X = match_data_1[, covariates],
+#                        M = 1, # one-to-one matching
+#                        estimand = "ATT", 
+#                        BiasAdjust = TRUE) # bias adjustment
+# 
+# match_data_2 <- estimation_nona[c(match_model_2$index.treated, 
+#                                   match_model_2$index.control),]
+# 
+# match_data_2 <- match_data_2 |>
+#   drop_na()
+
+```
+Should we run it multiple times? The results don't change much
+
+Then, checking the balance after the matching
+
+```{r balance table after}
+match_info <- MatchBalance(match.out = match_model_1, #same as above - gets balance, but this time compares before and after
+                                    formul = balance_formula,
+                                    data = estimation_nona,
+                                    print.level = 0, nboots = 1000)
+
+balance_test_after <- baltest.collect(match_info, var.names = covariates, after = TRUE) #new balance test
+balance_test_after <- balance_test_after[, c("mean.Tr", "mean.Co", "T pval", "KS pval")]
+
+balance_test_after %>%
+  kable(booktabs = T, digits = 3, align = rep('c', 4),
+        col.names = c("Treatment Mean", "Control Mean", "T p-value", "KS p-value")) %>% 
+  kable_styling(full_width = F, position = "center")
+```
+
+```{r second run balance table, warning=FALSE, include=FALSE, message=FALSE}
+# #second round - the balance table looks the same as the first round
+# match_info_1 <- MatchBalance(match.out = match_model_2,
+#                                     formul = balance_formula,
+#                                     data = match_data_1,
+#                                     print.level = 0, nboots = 1000)
+# 
+# match_info_1 <- MatchBalance(balance_formula,
+#                                     data = match_data_2,
+#                                     print.level = 0, nboots = 1000)
+# 
+# balance_test_after_1 <- baltest.collect(match_info_1, var.names = covariates, after = FALSE)
+# balance_test_after_1 <- balance_test_after[, c("mean.Tr", "mean.Co", "T pval", "KS pval")]
+# balance_test_after_1 %>%
+#   kable(booktabs = T, digits = 3, align = rep('c', 4),
+#         col.names = c("Treatment Mean", "Control Mean", "T p-value", "KS p-value")) %>% 
+#   kable_styling(full_width = F, position = "center")
+```
+
+```{r balance plot after}
+
+match_data_1 |>
+  dplyr::select(all_of(covariates), treat_type) |> #choose covariates
+  reshape2::melt(all_of(covariates), id.vars = "treat_type", na.rm = T) |> #put them all in one column
+  ggplot(aes(x = value)) +
+  geom_density(aes(col = as_factor(treat_type)), alpha = 0.4) +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = paste0("PDF of Covariates by Treatment Status, after matching on covariates"),
+       y = "Density", col = "Treatment") +
+  labs(col = "Treatment") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+```
+
+Finally, calculating ATT (how should we?)
+```{r calculate att}
+#summary(match_model_1)
+
+#manually
+#mean(match_data_1$trust_plebi_yes[match_data_1$treat_dicho == 1]) - mean(match_data_1$trust_plebi_yes[match_data_1$treat_dicho == 0])
+
+#naive matching
+lm_match <- lm_robust(trust_plebi_yes ~ treat_type, data = match_data_1) 
+
+#controls matching
+lm_match_controls <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_nonstate_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_1)
+
+```
+
+#### 4.3.2 Matching on covariates - MatchIt() version
+
+A different way to match on covariates; 1-on-1 nearest neighbor matching on the scaled euclidian distance, with replacement
+
+```{r matchit version}
+# https://kosukeimai.github.io/MatchIt/articles/matching-methods.html
+# https://kosukeimai.github.io/MatchIt/articles/estimating-effects.html#the-standard-case
+
+match_model_2 <- matchit(balance_formula, 
+                         data = estimation_nona, 
+                         estimand = "ATT",
+                         method = "nearest", 
+                         ratio = 1,
+                         distance = "scaled_euclidean", #matching using the same distance measure as Match()
+                         replace = TRUE)
+
+#summary(match_model_2) #two tables: balance before and after matching
+
+bal.tab(match_model_2, stats = c("mean.diffs", "ks.statistics"))
+
+#gets new dataset of just the matched observations
+match_data_2 <- match_data(match_model_2) 
+table(match_data_2$treat_type)
+
+# plot(summary(match_model_2), xlim = c(0, 0.7), var.order = "unmatched") #loveplot - how different the matched is (dashed is 0.05; straight is 0.1)
+# title(main = "Loveplot of covariate distance")
+# 
+# plot(match_model_2, type = "density", interactive = FALSE) #densities of every covariate
+
+#naive
+lm_match2 <- lm_robust(trust_plebi_yes ~ treat_type, weights = weights, data = match_data_2)
+
+#controls
+lm_match_controls2 <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_2)
+
+#use cobalt: https://kosukeimai.github.io/MatchIt/articles/assessing-balance.html#assessing-balance-with-cobalt
+
+#each covariate plot
+match_data_2 |>
+  dplyr::select(all_of(covariates), treat_type) |> #choose covariates
+  reshape2::melt(all_of(covariates), id.vars = "treat_type", na.rm = T) |> #put them all in one column
+  ggplot(aes(x = value)) +
+  geom_density(aes(col = as_factor(treat_type)), alpha = 0.4) +
+  facet_wrap(~ variable, scales = "free") +
+  labs(title = paste0("PDF of Covariates by Treatment Status after matching"),
+       y = "Density", col = "Treatment") +
+  labs(col = "Treatment") +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())  +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+```
+
+```{r remove 2, warning=FALSE, include=FALSE, message=FALSE}
+
+rm(balance_test_before, balance_test_after, match_info, match_data_1, match_data_2, match_model_1, match_model_2, exact_matches, lm_match, lm_match_controls)
+```
+
+### 4.3.3 Propensity score matching - Match() version
+
+```{r compare propensity scores}
+
+# plot propensity scores of treated vs control
+ggplot(tibble(ps = estimation_nona$ps, 
+              treatment = as_factor(ifelse(estimation_nona$treat_type == 1, "Treated", "Control"))),
+       aes(x = ps, col = treatment)) +
+  geom_density() +
+  labs(title = "Distribution of propensity scores before", y = "Density", x = "Propensity Score") +
+  xlim(c(0, 1)) +
+  ylim(c(0, 5)) +
+  theme_minimal() +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Treatment", "Control")) 
+
+```
+
+Compare units that have a comparable probability of getting treated to match:
+
+```{r match propensity scores}
+
+#match based on propensity scores
+match_ps <- Match(Y = estimation_nona$trust_plebi_yes, 
+                  Tr = estimation_nona$treat_type, 
+                  X = estimation_nona$ps, 
+                  M = 1, 
+                  estimand = "ATT")
+
+#get dataset of only matched observations
+match_data_ps <- estimation_nona[c(match_ps$index.treated, 
+                                  match_ps$index.control),]
+table(match_data_ps$treat_type)
+
+
+```
+
+Checking balance after matching:
+
+```{r balance after 2}
+#get balance of dataset after matching
+match_balance_ps <- MatchBalance(match.out = match_ps, 
+                                 formul = balance_formula, 
+                                 data = estimation_nona, 
+                                 print.level = 0)
+
+balance_table_ps <- baltest.collect(match_balance_ps, var.names = covariates, after = TRUE) #collecting numbers from matchbalance
+balance_table_ps <- balance_table_ps[, c("mean.Tr", "mean.Co", "T pval", "KS pval")]
+
+balance_table_ps |> #output table
+  kable(booktabs = T, digits = 3, align = rep('c', 4),
+        col.names = c("Treatment Mean", "Control Mean", "T p-value", "KS p-value")) |> 
+  kable_styling(full_width = F, position = "center")
+
+#plot of propensity scores after matching
+ggplot(tibble(ps = match_data_ps$ps, 
+              treatment = as_factor(ifelse(match_data_ps$treat_type == 1, "Treated", "Control"))),
+       aes(x = ps, col = treatment)) +
+  geom_density() +
+  labs(title = "Distribution of propensity scores after matching", y = "Density", x = "Propensity Score") +
+  xlim(c(0, 1)) +
+  theme_minimal() +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+```
+
+Calculating the ATT:
+```{r calculate att 2}
+
+#summary(match_ps)
+
+#calculate ATT manually
+#mean(match_data_ps$trust_plebi_yes[match_data_ps$treat_type == 1]) - mean(match_data_ps$trust_plebi_yes[match_data_ps$treat_type == 0])
+
+#naive matching
+lm_match_ps <- lm_robust(trust_plebi_yes ~ treat_type, data = match_data_ps)
+
+#controls matching
+lm_match_ps_controls <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = match_data_ps)
+```
+
+The Match() propensity scores afterwards are very close, but the data has been significantly manipulated: there are many duplicates of both control and treatment
+
+#### 4.3.4 Propensity score matching - MatchIt() version
+
+1-on-1 nearest neighbor matching on the propensity score, with replacement
+
+```{r matchit version 2}
+
+#matchit version
+match_balance_ps_2 <- matchit(balance_formula, #match based on propensity scores
+                    data = estimation_nona, 
+                    estimand = "ATT", 
+                    method = "nearest", 
+                    ratio = 1,
+                    distance = "glm", #glm gets propensity scores - calculated in {r cleaning data} with glm as well
+                    link = "logit", 
+                    replace = TRUE)
+
+#two tables - before and after matching
+#summary(match_balance_ps_2)
+
+bal.tab(match_balance_ps_2, stats = c("mean.diffs", "ks.statistics"))
+
+#get dataset of only matched observations
+match_data_ps_2 <- match_data(match_balance_ps_2)
+table(match_data_ps_2$treat_type)
+
+# plot(summary(match_balance_ps_2), xlim = c(0, 0.7), var.order = "unmatched") #loveplot showing similarity
+# title(main = "Loveplot of covariate distance with propensity score matching")
+# 
+# 
+# plot(match_balance_ps_2, type = "density", interactive = FALSE) #density plots of each covariate
+
+#naive
+lm_match_ps2 <- lm_robust(trust_plebi_yes ~ treat_type, weights = weights, data = match_data_ps_2)
+
+#controls
+lm_match_ps_controls2 <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weights = weights, data = match_data_ps_2) #-0.0006025587
+
+#comparing propensity scores after matching
+ggplot(tibble(ps = match_data_ps_2$distance, 
+              treatment = as_factor(ifelse(match_data_ps_2$treat_type == 1, "Treated", "Control"))),
+       aes(x = ps, col = treatment)) +
+  geom_density() +
+  labs(title = "Distribution of propensity scores after matching", y = "Density", x = "Propensity Score") +
+  xlim(c(0, 1)) +
+  ylim(c(0, 5)) +
+  theme_minimal()  +
+  scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment")) 
+```
+
+## 4.4 Weighting
+
+### 4.4.1 Weighting propensity scores - manual version
+
+Inverse Probability-of-Treatment Weighting (IPW):
+
+```{r weight propensity scores}
+# stabilized IPW weights, created with propensity scores
+ps = estimation_nona$ps
+D = estimation_nona$treat_type
+PrD = mean(D)
+IPW = (D*PrD+(1-D)*(1-PrD))/(D*ps+(1-D)*(1-ps))
+
+# check the propensity scores before weighting
+plot(density(ps[D==1]), lwd = 2, ylim = c(0, 4.5), 
+     main="Distribution of propensity scores: before weighting")
+lines(density(ps[D==0]),lwd = 2, lty = 2)
+legend("topleft", legend = c("treated","controls"), lty = c(1, 2), lwd = 2)
+
+# check the propensity scores after weighting
+plot(density(ps[D==1], weight = IPW[D==1]/sum(IPW[D==1])), lwd = 2, ylim = c(0, 4.5), 
+     main="Distribution of propensity scores: Weighted")
+lines(density(ps[D==0], weight = IPW[D==0]/sum(IPW[D==0])),lwd = 2, lty = 2)
+legend("topleft", legend = c("treated","controls"), lty = c(1, 2), lwd = 2)
+
+IPW_df <- as.data.frame(IPW)
+
+IPW_df |>
+  ggplot(aes(x = IPW)) +
+    geom_density() +
+    labs(
+    title = "Density plot of IPW",
+    x = "weight"
+  ) +
+  theme_minimal() #check IPW for extremes 
+
+```
+
+Check how extreme the weights get / how few units are doing most of the work - it means large bias
+
+Take regressions:
+```{r regression with weights}
+#naive matching
+lm_weight_ps <- lm_robust(trust_plebi_yes ~ treat_type, weight = IPW, data = estimation_nona)
+
+#controls matching
+lm_weight_ps_controls <- lm_robust(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 +  gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, weight = IPW, data = estimation_nona)
+```
+
+### 4.4.2 Weighting propensity scores - weightit() version
+
+```{r regression with weights - WeightIt version}
+#weightit version
+weight_model_ps <- weightit(balance_formula, 
+                     data = estimation_nona, 
+                     method = "glm", 
+                     estimand = "ATE")
+summary(weight_model_ps)
+
+#treatment effect
+#summary(lm_weightit(trust_plebi_yes ~ treat_type, data = estimation_nona, weightit = weight_model_ps))
+
+```
+
+```{r remove 3, warning=FALSE, include=FALSE, message=FALSE}
+rm(balance_table_ps, match_ps, match_balance_ps, match_balance_ps_2, match_data_ps, match_data_ps_2, weight_model_kbal, weight_model_ps, D, IPW, PrD, ps, lm_match_ps, lm_match_ps_controls, IPW_df, lm_match_)
+```
+
+
+
+# 5. Results
+
+```{r all models table - with control and naive}
+
+#all the models
+models <- list(
+  "(1)" = lm_naive,
+  "(2)" = lm_controls,
+  "(3)" = lm_match2,
+  "(4)" = lm_match_controls2,
+  "(5)" = lm_match_ps2,
+  "(6)" = lm_match_ps_controls2,
+  "(7)" = lm_weight_ps,
+  "(8)" = lm_weight_ps_controls,
+  "(9)" = lm_weight_ker,
+  "(10)" = lm_weight_ker_controls
+  )
+
+covariate_row <- tribble(~term, ~`(1)`, ~`(2)`, ~`(3)`, ~`(4)`, ~`(5)`, ~`(6)`, ~`(7)`, ~`(8)`, ~`(9)`, ~`(10)`,
+                'controls included', 'No', 'Yes', 'No', 'Yes', 'No', 'Yes', 'No', 'Yes', 'No', 'Yes')
+
+
+#put together
+modelsummary(models, 
+             #vcov = "HC2",
+             #statistic = "p.value",
+             stars = TRUE,
+             coef_rename = c("treat_type" = "treatment", "uribe_2002_proportion" = "uribe", "log_pop" = "population", "gdp_pcap_cons2005" = "gdp percapita", "etv_state_pre" = "state", "etv_guerr_pre" = "guerilla", "hist_land_conflict" = "historical conflict", "justice_percent" = "justice", "rank_w_any" = "military rank"),
+             #coef_omit = "uribe_2002_proportion|log_pop|gdp_pcap_cons2005|gini|etv_state_pre|etv_nonstate_pre|hist_land_conflict|justice_percent|rank_w_any",
+             gof_omit = "BIC|AIC|Log.Lik|F",
+             add_rows = covariate_row,
+             title = "The effect of state violence cases on support for peace",
+             escape = FALSE, #to fix bug in header; need to include "+ p < 0.1, * p < 0.05, ** p < 0.01, *** p < 0.001" somewhere
+             output = "kableExtra") |> 
+  kable_styling(full_width = TRUE, position = "center", font_size = 8, latex_options = "HOLD_position") |>
+  add_header_above(c(" " = 1, "Naive" = 1, "Controls" = 1, "Covariates" = 2, "Propensity scores" = 4, "Kernel" = 2)) |>
+  add_header_above(c(" " = 3, "Matching" = 4, "Weighting" = 4)) #|>
+  #save_kable("code/outputs/falsos_table.png")
+
+```
+
+```{r all models plot}
+
+models_plot <- list(
+  "naive" = lm_naive,
+  "controls" = lm_controls,
+  " " = lm_match2,
+  "covariate matching" = lm_match_controls2,
+  " " = lm_match_ps2,
+  "propensity score matching" = lm_match_ps_controls2,
+  " " = lm_weight_ps,
+  "propensity score weighting" = lm_weight_ps_controls,
+  " " = lm_weight_ker,
+  "kernel weighting" = lm_weight_ker_controls
+  )
+
+#plot of just treat_type variable
+modelplot(models_plot,
+          facet=TRUE,
+          coef_omit = c(-2)) +
+  aes(color = model, shape = model) +
+  scale_color_manual(values = c("grey", "grey", "darkorange2","darkorange2","orange1", "orange1", "slateblue2", "slateblue2", "slateblue4", "slateblue4")) +
+  scale_shape_manual(values = c(1, 15, 1, 15, 1, 15, 1, 15, 1, 15)) +
+  theme(legend.position="none") +
+  geom_vline(xintercept = 0) +
+  labs(
+    title = "The effect of state violence cases on support for peace",
+    x = "coefficient estimates of proportion of yes votes per municipality",
+    y = "dichotomized state violence cases",
+    caption = "open circles: without controls; closed square: with controls"
+  )
+
+```
+
+
+# 6. Sensitivity analysis
+
+Which covariate as a benchmark?
+
+```{r sensitivity}
+
+estimation_model <- lm(trust_plebi_yes ~ treat_type + uribe_2002_proportion + log_pop + gdp_pcap_cons2005 + gini + etv_state_pre + etv_guerr_pre + hist_land_conflict + justice_percent + rank_w_any, data = estimation_nona)
+
+
+estimation_sensitivity <- sensemakr(model = estimation_model, 
+                                treatment = "treat_type",
+                                benchmark_covariates = "gini",
+                                kd = c(1:3), #1-3 times stronger than treatment
+                                ky = c(1:3), #1-3 times stronger than outcome
+                                q = 1, #reduction of 100% of current estimate - true effect of zero is problematic
+                                alpha = 0.05, 
+                                reduce = T)
+#estimation_sensitivity
+
+#ovb_minimal_reporting(estimation_sensitivity, format = "latex")
+
+#summary(estimation_sensitivity)
+
+plot(estimation_sensitivity)
+```
+
+Sensitivity with regular lm() only; ipw/matching weights mess it up -- how to add other versions?
+
+```{r remove 4, warning=FALSE, include=FALSE, message=FALSE}
+rm(estimation_model, estimation_sensitivity)
+```
