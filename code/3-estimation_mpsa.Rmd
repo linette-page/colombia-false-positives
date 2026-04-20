@@ -47,8 +47,8 @@ Treatment is disappearances and homicides by the state; calculated as the yearly
 
 ```{r treat_definition}
 #select treatment
-estimation_data$treat <- estimation_data$etv_dh
-#other violence data options: $etv_all_jep, $etv_cnmh, $etv_all_cnmh, $etv_false_pos
+estimation_data$treat <- estimation_data$etv_false_pos
+#other violence data options: $etv_all_jep, $etv_cnmh, $etv_all_cnmh, $etv_dh
 
 #versions of treatment
 estimation_data <- estimation_data |>
@@ -471,7 +471,7 @@ modelsummary(models,
              coef_rename = c("treat_type" = "treatment", "uribe_2002_proportion_c" = "uribe vote", "log_pop_c" = "population", "gdp_pcap_cons2005_c" = "gdp per capita", "gini_c" = "gini", "etv_state_pre_c" = "state violence", "etv_guerr_pre_c" = "guerilla violence", "hist_land_conflict_c" = "historical land conflict", "justice_percent_c" = "judicial capacity", "rank_w_any_c" = "military rank"),
              coef_omit = ":",
              gof_omit = "BIC|AIC|Log.Lik|F",
-             title = "The effect of state violence cases on support for peace",
+             title = "The effect of falsos positivos cases on support for peace",
              escape = FALSE, #to fix bug in header; need to include "+ p < 0.1, * p < 0.05, ** p < 0.01, *** p < 0.001" somewhere
              output = "kableExtra") |> 
   kable_styling(full_width = TRUE, position = "center", font_size = 8, latex_options = "HOLD_position") |>
@@ -502,7 +502,7 @@ modelplot(models_plot,
   theme(legend.position="none") +
   geom_vline(xintercept = 0) +
   labs(
-    title = "The effect of state violence cases on support for peace",
+    title = "The effect of falsos positivos cases on support for peace",
     x = "coefficient estimates of proportion of yes votes per municipality",
     y = "dichotomized state violence cases",
   )
