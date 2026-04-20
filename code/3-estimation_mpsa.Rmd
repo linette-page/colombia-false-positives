@@ -454,12 +454,11 @@ rm(balance_table_ps, match_ps, match_balance_ps, match_data_ps,  weight_model_kb
 
 #all the models
 models <- list(
-  "(1)" = lm_naive,
-  "(2)" = lm_controls,
-  "(3)" = lm_match_covariates,
-  "(4)" = lm_match_ps,
-  "(5)" = lm_weight_ps,
-  "(6)" = lm_weight_ker
+  "(1)" = lm_controls,
+  "(2)" = lm_match_covariates,
+  "(3)" = lm_match_ps,
+  "(4)" = lm_weight_ps,
+  "(5)" = lm_weight_ker
   )
 
 
@@ -475,8 +474,8 @@ modelsummary(models,
              escape = FALSE, #to fix bug in header; need to include "+ p < 0.1, * p < 0.05, ** p < 0.01, *** p < 0.001" somewhere
              output = "kableExtra") |> 
   kable_styling(full_width = TRUE, position = "center", font_size = 8, latex_options = "HOLD_position") |>
-  add_header_above(c(" " = 1, "Naive" = 1, "Controls" = 1, "Covariates" = 1, "Propensity scores" = 2, "Kernel" = 1)) |>
-  add_header_above(c(" " = 3, "Matching" = 2, "Weighting" = 2)) #|>
+  add_header_above(c(" " = 1, "Controls" = 1, "Covariates" = 1, "Propensity scores" = 2, "Kernel" = 1)) |>
+  add_header_above(c(" " = 2, "Matching" = 2, "Weighting" = 2)) #|>
   #save_kable("code/outputs/falsos_table.png")
 
 ```
@@ -484,7 +483,6 @@ modelsummary(models,
 ```{r all models plot}
 
 models_plot <- list(
-  "naive" = lm_naive,
   "controls" = lm_controls,
   "covariate matching" = lm_match_covariates,
   "propensity score matching" = lm_match_ps,
@@ -497,8 +495,8 @@ modelplot(models_plot,
           facet=TRUE,
           coef_omit = c(-2)) +
   aes(color = model, shape = model) +
-  scale_color_manual(values = c("grey", "grey", "darkorange2", "orange1", "slateblue2", "slateblue4")) +
-  scale_shape_manual(values = c(1, 1, 1, 1, 1, 1)) +
+  scale_color_manual(values = c("grey", "darkorange2", "orange1", "slateblue2", "slateblue4")) +
+  scale_shape_manual(values = c(1, 1, 1, 1, 1)) +
   theme(legend.position="none") +
   geom_vline(xintercept = 0) +
   labs(
