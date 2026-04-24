@@ -438,6 +438,11 @@ ker_df |>
   theme_minimal()  +
   scale_color_manual(values = c("darkorange2", "orchid3"), labels = c("Control", "Treatment"))
 
+modelsummary(lm_weight_ker, stars = TRUE, 
+             coef_rename = c("treat_type" = "exposure to state violence", "uribe_2002_proportion_c" = "uribe vote", "log_pop_c" = "population", "gdp_pcap_cons2005_c" = "gdp per capita", "gini_c" = "gini", "etv_state_pre_c" = "state violence", "etv_guerr_pre_c" = "guerilla violence", "hist_land_conflict_c" = "historical land conflict", "justice_percent_c" = "judicial capacity", "rank_w_any_c" = "military rank"),
+             coef_omit = ":",
+             gof_omit = "BIC|AIC|Log.Lik|F")
+
 ```
 
 Where treatment and control are the most balanced (ebalance convergence) and bias bound is as low as possible
